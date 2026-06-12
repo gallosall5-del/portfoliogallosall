@@ -190,6 +190,8 @@ export default function Hero({ isDark }: HeroProps) {
               <motion.a
                 href="/cv.pdf"
                 download="cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`px-6 py-3 sm:px-8 sm:py-3.5 font-semibold rounded-xl border-2 transition-colors flex items-center gap-2 ${

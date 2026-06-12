@@ -8,9 +8,9 @@ interface GitHubProps {
 
 const stats = [
   { icon: FaCodeBranch, label: 'Repositories', value: '15+', color: 'from-blue-500 to-cyan-400' },
-  { icon: FaStar, label: 'Contributions', value: '200+', color: 'from-violet-500 to-purple-400' },
+  { icon: FaStar, label: 'Contributions', value: '10', color: 'from-violet-500 to-purple-400' },
   { icon: FaFire, label: 'Streak', value: '30+', color: 'from-orange-500 to-amber-400' },
-  { icon: FaGithub, label: 'Followers', value: '10+', color: 'from-emerald-500 to-teal-400' },
+  { icon: FaGithub, label: 'Followers', value: '200', color: 'from-emerald-500 to-teal-400' },
 ];
 
 const languages = [
@@ -61,7 +61,7 @@ export default function GitHub({ isDark }: GitHubProps) {
         </div>
 
         {/* Languages & Contribution graph */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Most used languages */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

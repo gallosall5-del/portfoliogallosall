@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property, react/jsx-props-no-spreading, no-param-reassign
    -- props et objets Three.js manipulés par React Three Fiber */
 import React, {
-  Suspense, useMemo, useRef, useState,
+  Suspense, useEffect, useMemo, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -151,21 +151,37 @@ function PhotoFrame() {
   return <primitive object={clone} />;
 }
 
+// Le ballon fait trois rebonds puis ouvre la page « À propos » (loisirs).
+const BALL_RADIUS = 0.11;
+
 function Football() {
-  const ref = useRef();
+  const navigate = useNavigate();
+  const bounce = useRef();
+  const spin = useRef();
   const kick = useRef(0);
-  useFrame((_, delta) => {
-    if (!ref.current) return;
-    if (kick.current > 0) {
-      kick.current = Math.max(0, kick.current - delta);
-      const t = 1 - kick.current;
-      ref.current.position.y = Math.abs(Math.sin(t * Math.PI * 3)) * 0.35 * (1 - t);
-      ref.current.rotation.x -= delta * 8;
-    }
+  useFrame((_, rawDelta) => {
+    if (!bounce.current || kick.current <= 0) return;
+    // Plafonné pour que l'animation reste visible même si une image est lente.
+    const delta = Math.min(rawDelta, 1 / 30);
+    kick.current = Math.max(0, kick.current - delta / 1.2);
+    const t = 1 - kick.current;
+    bounce.current.position.y = BALL_RADIUS
+      + Math.abs(Math.sin(t * Math.PI * 3)) * 0.3 * (1 - t);
+    spin.current.rotation.x -= delta * 10 * (1 - t);
+    if (kick.current === 0) navigate('/about');
   });
   return (
-    <Interactive label="⚽ Mon loisir : le football" onClick={() => { kick.current = 1; }} position={[0.5, DESK_TOP, 0.3]}>
-      <group ref={ref}><Model id="dirty_football" /></group>
+    <Interactive
+      label="⚽ Mes loisirs : football, cinéma, art"
+      onClick={() => { if (kick.current === 0) kick.current = 1; }}
+      position={[0.5, DESK_TOP, 0.3]}
+    >
+      {/* Pivot au centre du ballon pour qu'il tourne sur lui-même */}
+      <group ref={bounce} position={[0, BALL_RADIUS, 0]}>
+        <group ref={spin}>
+          <Model id="dirty_football" position={[0, -BALL_RADIUS, 0]} />
+        </group>
+      </group>
     </Interactive>
   );
 }
@@ -250,27 +266,25 @@ function Scene() {
   );
 }
 
-function Loader({ onEnter }) {
+// Écran de chargement : s'efface tout seul dès que la scène est prête.
+function Loader({ onReady }) {
   const { progress, active } = useProgress();
   const ready = !active && progress === 100;
+  useEffect(() => {
+    if (!ready) return undefined;
+    const timer = setTimeout(onReady, 400);
+    return () => clearTimeout(timer);
+  }, [ready, onReady]);
   return (
-    <div className="desk3d-loader">
+    <div className={`desk3d-loader${ready ? ' desk3d-loader--done' : ''}`}>
       <p className="desk3d-loader__title">Gallo SALL</p>
-      {ready ? (
-        <button type="button" className="btn-pill btn-accent" onClick={onEnter}>
-          Entrer
-        </button>
-      ) : (
-        <>
-          <div className="desk3d-loader__bar"><span style={{ width: `${progress}%` }} /></div>
-          <p className="desk3d-loader__text">{`Chargement de la scène 3D… ${Math.round(progress)} %`}</p>
-        </>
-      )}
+      <div className="desk3d-loader__bar"><span style={{ width: `${progress}%` }} /></div>
+      <p className="desk3d-loader__text">{`Chargement de la scène 3D… ${Math.round(progress)} %`}</p>
     </div>
   );
 }
 
-Loader.propTypes = { onEnter: PropTypes.func.isRequired };
+Loader.propTypes = { onReady: PropTypes.func.isRequired };
 
 function DeskScene() {
   const [entered, setEntered] = useState(false);
@@ -285,7 +299,7 @@ function DeskScene() {
           <Scene />
         </Suspense>
       </Canvas>
-      {!entered && <Loader onEnter={() => setEntered(true)} />}
+      {!entered && <Loader onReady={() => setEntered(true)} />}
       {entered && (
         <p className="desk3d-hint">Cliquez sur les objets du bureau pour explorer · Faites défiler pour la suite ↓</p>
       )}

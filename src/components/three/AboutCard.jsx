@@ -69,6 +69,8 @@ function Flag(props) {
 
 function Football(props) {
   const { scene } = useGLTF('models/dirty_football.glb');
+  // Copie locale : agrandir le modèle partagé changerait aussi le ballon du bureau.
+  const ball = useMemo(() => scene.clone(true), [scene]);
   const ref = useRef();
   useFrame((_, delta) => {
     ref.current.rotation.y += delta * 0.8;
@@ -77,7 +79,7 @@ function Football(props) {
   return (
     <Float speed={2.5} floatIntensity={1.2} {...props}>
       <group ref={ref}>
-        <primitive object={scene} position={[0, -0.29, 0]} scale={2.6} />
+        <primitive object={ball} position={[0, -0.29, 0]} scale={2.6} />
       </group>
     </Float>
   );

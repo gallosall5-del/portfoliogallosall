@@ -77,3 +77,12 @@
   max-width: calc(100% - 32px);
   pointer-events: none;
 }
+
+.desk3d-loader {
+  transition: opacity 0.4s ease;
+}
+
+.desk3d-loader--done {
+  opacity: 0;
+  pointer-events: none;
+}

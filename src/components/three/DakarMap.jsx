@@ -23,13 +23,13 @@ const project = ([lon, lat]) => [(lon - CENTER[0]) * SCALE, (lat - CENTER[1]) * 
 // Lieux affichés sur la carte. `match` relie un repère à une expérience du JSON.
 const PLACES = [
   {
-    match: 'Namastech', coords: [-17.445, 14.69], color: '#818cf8',
+    match: 'Namastech', coords: [-17.442, 14.758], color: '#818cf8', labelY: 1.35,
   },
   {
-    match: 'ITEA', coords: [-17.475, 14.752], color: '#22c55e',
+    match: 'ITEA', coords: [-17.475, 14.752], color: '#22c55e', labelY: 0.6,
   },
   {
-    match: null, coords: [-17.452, 14.728], color: '#f59e0b', title: 'Grand Yoff', subtitle: "C'est ici que je vis",
+    match: null, coords: [-17.452, 14.728], color: '#f59e0b', labelY: 0.95, title: 'Grand Yoff', subtitle: "C'est ici que je vis",
   },
 ];
 
@@ -104,7 +104,13 @@ function Pin({
           <meshBasicMaterial color={place.color} />
         </mesh>
       </group>
-      <Html position={[0, 0.6, 0]} center zIndexRange={[20, 0]}>
+      {place.labelY > 0.8 && (
+        <mesh position={[0, (place.labelY + 0.35) / 2, 0]}>
+          <cylinderGeometry args={[0.004, 0.004, place.labelY - 0.35, 6]} />
+          <meshBasicMaterial color={place.color} transparent opacity={0.6} />
+        </mesh>
+      )}
+      <Html position={[0, place.labelY, 0]} center zIndexRange={[20, 0]}>
         {open ? (
           <div className="stage3d-card">
             <strong>{place.title}</strong>
@@ -123,6 +129,7 @@ Pin.propTypes = {
   place: PropTypes.shape({
     coords: PropTypes.arrayOf(PropTypes.number).isRequired,
     color: PropTypes.string.isRequired,
+    labelY: PropTypes.number.isRequired,
     title: PropTypes.string,
     subtitle: PropTypes.string,
     detail: PropTypes.string,

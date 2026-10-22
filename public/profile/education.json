@@ -1,0 +1,28 @@
+{
+    "education": [
+        {
+            "title": "2024 - 2026",
+            "cardTitle": "Technicien Supérieur en Développement d'Applications Mobiles",
+            "cardSubtitle": "CFPT-SJ — Centre de Formation Professionnelle et Technique Sénégal/Japon",
+            "cardDetailedText": "Développement d'applications mobiles (Flutter), conception d'API et méthodologies agiles."
+        },
+        {
+            "title": "2023",
+            "cardTitle": "Licence 1 — Mathématiques, Physique, Chimie et Informatique (MPCI)",
+            "cardSubtitle": "Université Alioune Diop de Bambey",
+            "cardDetailedText": ""
+        },
+        {
+            "title": "2020",
+            "cardTitle": "Baccalauréat",
+            "cardSubtitle": "Lycée Mame Cheikh Mbaye",
+            "cardDetailedText": ""
+        },
+        {
+            "title": "2015",
+            "cardTitle": "Brevet de Fin d'Études Moyennes (BFEM)",
+            "cardSubtitle": "CEM Moriba Diakhité",
+            "cardDetailedText": ""
+        }
+    ]
+}

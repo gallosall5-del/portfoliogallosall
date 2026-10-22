@@ -1,0 +1,130 @@
+{
+    "intro": "J'aime apprendre et expérimenter de nouvelles technologies.\nVoici les principaux langages, frameworks et outils que j'utilise :",
+    "skills": [
+        {
+            "title": "Frontend",
+            "items": [
+                {
+                    "icon": "images/skills/html.png",
+                    "title": "HTML5"
+                },
+                {
+                    "icon": "images/skills/css.png",
+                    "title": "CSS3"
+                },
+                {
+                    "icon": "images/skills/js.png",
+                    "title": "JavaScript"
+                },
+                {
+                    "icon": "images/skills/typescript.png",
+                    "title": "TypeScript"
+                },
+                {
+                    "icon": "images/skills/react.png",
+                    "title": "React"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/angular/angular-original.svg",
+                    "title": "Angular"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg",
+                    "title": "Tailwind CSS"
+                }
+            ]
+        },
+        {
+            "title": "Backend",
+            "items": [
+                {
+                    "icon": "images/skills/php.png",
+                    "title": "PHP"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/laravel/laravel-original.svg",
+                    "title": "Laravel"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/symfony/symfony-original.svg",
+                    "title": "Symfony"
+                },
+                {
+                    "icon": "images/skills/nodejs.png",
+                    "title": "Node.js"
+                },
+                {
+                    "icon": "images/skills/python.png",
+                    "title": "Python"
+                }
+            ]
+        },
+        {
+            "title": "Mobile",
+            "items": [
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/flutter/flutter-original.svg",
+                    "title": "Flutter"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/dart/dart-original.svg",
+                    "title": "Dart"
+                },
+                {
+                    "icon": "images/skills/firebase.png",
+                    "title": "Firebase"
+                },
+                {
+                    "icon": "images/skills/android-studio.png",
+                    "title": "Android Studio"
+                }
+            ]
+        },
+        {
+            "title": "Bases de données",
+            "items": [
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/postgresql/postgresql-original.svg",
+                    "title": "PostgreSQL"
+                },
+                {
+                    "icon": "images/skills/mysql.png",
+                    "title": "MySQL"
+                },
+                {
+                    "icon": "images/skills/mongo-db.png",
+                    "title": "MongoDB"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/sqlite/sqlite-original.svg",
+                    "title": "SQLite"
+                }
+            ]
+        },
+        {
+            "title": "Outils & API",
+            "items": [
+                {
+                    "icon": "images/skills/git.png",
+                    "title": "Git"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg",
+                    "title": "GitHub"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/gitlab/gitlab-original.svg",
+                    "title": "GitLab"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/postman/postman-original.svg",
+                    "title": "Postman"
+                },
+                {
+                    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/swagger/swagger-original.svg",
+                    "title": "Swagger"
+                }
+            ]
+        }
+    ]
+}

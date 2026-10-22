@@ -1,0 +1,25 @@
+{
+    "experiences": [
+        {
+            "title": "Stagiaire Développeur",
+            "subtitle": "Namastech — Dakar",
+            "workType": "Stage",
+            "workDescription": [
+                "Contribution au développement de la plateforme **Teranga Gescrim**.",
+                "Travail en équipe sur la conception des modules de gestion des **rapports** et **infractions**.",
+                "Acquisition des méthodes et pratiques professionnelles en environnement web et mobile."
+            ],
+            "dateText": "2 mois"
+        },
+        {
+            "title": "Stagiaire Développeur",
+            "subtitle": "ITEA — Yoff, Dakar",
+            "workType": "Stage",
+            "workDescription": [
+                "Conception de l'application mobile **EGL Company** pour la gestion des ventes.",
+                "Implication dans l'élaboration d'une solution adaptée à la vente de produits de consommation."
+            ],
+            "dateText": "5 mois"
+        }
+    ]
+}

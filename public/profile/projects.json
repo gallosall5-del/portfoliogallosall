@@ -1,0 +1,71 @@
+{
+    "projects": [
+        {
+            "title": "Teranga GESCRIM",
+            "bodyText": "- Système de gestion de la criminalité pour la **Police Nationale du Sénégal** (Direction de la Sécurité Publique).\n- Regroupe rapports, infractions, incidents, accidents et immigration : **dématérialisation totale** des processus papier.\n- Dashboard analytique avec graphiques interactifs, gestion territoriale multi-niveaux.\n- Application mobile de terrain, système de rôles et permissions, export PDF/Excel.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/gallosall5-del"
+                }
+            ],
+            "tags": [
+                "React",
+                "Laravel",
+                "Flutter",
+                "PostgreSQL",
+                "Tailwind CSS"
+            ],
+            "image": "images/projects/teranga-gescrim.jpeg"
+        },
+        {
+            "title": "EGL Company",
+            "bodyText": "- Application mobile **e-commerce et gestion des ventes** de produits alimentaires frais (viandes, œufs, charcuteries).\n- Catalogue produits, paiement en ligne sécurisé, suivi de livraison.\n- Disponible sur **Play Store** et **App Store**.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/gallosall5-del"
+                }
+            ],
+            "tags": [
+                "Flutter",
+                "Node.js",
+                "API REST"
+            ],
+            "image": "images/projects/egl-company.png"
+        },
+        {
+            "title": "Mouride Digital Content",
+            "bodyText": "- Application mobile regroupant le **Coran**, les **hadiths** et les **enseignements mourides** du Sénégal.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/gallosall5-del"
+                }
+            ],
+            "tags": [
+                "Flutter",
+                "Mobile"
+            ],
+            "image": "images/projects/mouride-digital-content.jpeg",
+            "imageFit": "contain",
+            "imageBackground": "#013a1f"
+        },
+        {
+            "title": "Portfolio Personnel",
+            "bodyText": "- Portfolio web développé avec **React** et **TypeScript**.\n- Animations fluides, mode sombre/clair, design responsive.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/gallosall5-del"
+                }
+            ],
+            "tags": [
+                "React",
+                "TypeScript",
+                "Tailwind CSS",
+                "Framer Motion"
+            ]
+        }
+    ]
+}

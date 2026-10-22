@@ -1,0 +1,38 @@
+{
+    "logo": {
+        "source": "images/logo.png",
+        "height": 45,
+        "width": 50
+    },
+    "sections": [
+        {
+            "title": "Accueil",
+            "href": "/"
+        },
+        {
+            "title": "À propos",
+            "href": "/about"
+        },
+        {
+            "title": "Compétences",
+            "href": "/skills"
+        },
+        {
+            "title": "Formation",
+            "href": "/education"
+        },
+        {
+            "title": "Expérience",
+            "href": "/experience"
+        },
+        {
+            "title": "Projets",
+            "href": "/projects"
+        },
+        {
+            "title": "CV",
+            "href": "/CV_Gallo_Sall.pdf",
+            "type": "link"
+        }
+    ]
+}

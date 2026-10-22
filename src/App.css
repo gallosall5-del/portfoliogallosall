@@ -247,3 +247,21 @@
   flex-wrap: wrap;
   gap: var(--space-2);
 }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.theme-toggle:hover {
+  transform: rotate(20deg);
+  background: var(--accent-soft);
+}

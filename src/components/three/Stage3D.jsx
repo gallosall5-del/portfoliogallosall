@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Canvas } from '@react-three/fiber';
 import { Html, useProgress } from '@react-three/drei';
+import usePerformance from './usePerformance';
 import '../../css/stage3d.css';
 
 function Progress() {
@@ -18,9 +19,10 @@ function Progress() {
 function Stage3D({
   children, height, hint, className, ...canvasProps
 }) {
+  const { ref, frameloop, dpr } = usePerformance();
   return (
-    <div className={`stage3d ${className}`} style={{ height }}>
-      <Canvas dpr={[1, 1.75]} {...canvasProps}>
+    <div ref={ref} className={`stage3d ${className}`} style={{ height }}>
+      <Canvas dpr={dpr} frameloop={frameloop} {...canvasProps}>
         <color attach="background" args={['#05070d']} />
         <Suspense fallback={<Progress />}>{children}</Suspense>
       </Canvas>

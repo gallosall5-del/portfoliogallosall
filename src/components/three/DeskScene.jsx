@@ -10,11 +10,12 @@ import {
   ContactShadows, Html, useCursor, useGLTF, useProgress, useTexture,
 } from '@react-three/drei';
 import * as THREE from 'three';
+import usePerformance from './usePerformance';
 import '../../css/desk3d.css';
 
 // Modèles Poly Haven (CC0), unités en mètres. Le plateau du bureau est à 0.788 m.
 const DESK_TOP = 0.788;
-const model = (id) => `models/${id}/${id}.gltf`;
+const model = (id) => `models/${id}.glb`;
 
 // Écran du portable : texte dessiné sur un canvas.
 function useScreenTexture() {
@@ -121,7 +122,7 @@ function Laptop() {
 // Cadre photo : on remplace l'illustration par la photo de profil.
 function PhotoFrame() {
   const { scene } = useGLTF(model('standing_picture_frame_01'));
-  const photo = useTexture('images/about/profile.png');
+  const photo = useTexture('images/about/profile.webp');
   const clone = useMemo(() => {
     photo.colorSpace = THREE.SRGBColorSpace;
     photo.flipY = false;
@@ -273,10 +274,13 @@ Loader.propTypes = { onEnter: PropTypes.func.isRequired };
 
 function DeskScene() {
   const [entered, setEntered] = useState(false);
+  const {
+    ref, frameloop, dpr, lowPower,
+  } = usePerformance();
 
   return (
-    <section className="desk3d">
-      <Canvas shadows dpr={[1, 1.75]} camera={{ position: [0, 1.4, 2.1], fov: 45 }}>
+    <section ref={ref} className="desk3d">
+      <Canvas shadows={!lowPower} dpr={dpr} frameloop={frameloop} camera={{ position: [0, 1.4, 2.1], fov: 45 }}>
         <Suspense fallback={null}>
           <Scene />
         </Suspense>

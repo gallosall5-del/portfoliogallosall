@@ -16,7 +16,7 @@
                 "PostgreSQL",
                 "Tailwind CSS"
             ],
-            "image": "images/projects/teranga-gescrim.jpeg"
+            "image": "images/projects/teranga-gescrim.webp"
         },
         {
             "title": "EGL Company",
@@ -32,7 +32,7 @@
                 "Node.js",
                 "API REST"
             ],
-            "image": "images/projects/egl-company.png"
+            "image": "images/projects/egl-company.webp"
         },
         {
             "title": "Mouride Digital Content",
@@ -47,7 +47,7 @@
                 "Flutter",
                 "Mobile"
             ],
-            "image": "images/projects/mouride-digital-content.jpeg",
+            "image": "images/projects/mouride-digital-content.webp",
             "imageFit": "contain",
             "imageBackground": "#013a1f"
         },

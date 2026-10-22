@@ -68,7 +68,7 @@ function Flag(props) {
 }
 
 function Football(props) {
-  const { scene } = useGLTF('models/dirty_football/dirty_football.gltf');
+  const { scene } = useGLTF('models/dirty_football.glb');
   const ref = useRef();
   useFrame((_, delta) => {
     ref.current.rotation.y += delta * 0.8;

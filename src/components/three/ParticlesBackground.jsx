@@ -3,7 +3,7 @@ import React, { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import '../../css/stage3d.css';
 
-const COUNT = 900;
+const COUNT = typeof window !== 'undefined' && window.innerWidth < 768 ? 400 : 900;
 
 function Dust() {
   const ref = useRef();
@@ -38,7 +38,7 @@ function Dust() {
 function ParticlesBackground() {
   return (
     <div className="particles-bg" aria-hidden="true">
-      <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 6], fov: 60 }} gl={{ alpha: true }}>
+      <Canvas dpr={1} camera={{ position: [0, 0, 6], fov: 60 }} gl={{ alpha: true }}>
         <Dust />
       </Canvas>
     </div>

@@ -32,3 +32,67 @@
   object-fit: cover;
   display: block;
 }
+
+/* Chiffres clés + actions */
+.about-stats-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.about-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.about-stat__value {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about-stat__label {
+  color: var(--text-muted);
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.about-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 0 0 0.9rem;
+  text-align: left;
+}
+
+.about-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.about-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--accent-soft);
+}
+
+.about-chip small {
+  color: var(--text-muted);
+}

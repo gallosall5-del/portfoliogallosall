@@ -132,3 +132,26 @@
 @media (max-width: 480px) {
   .tl-item { padding-left: 56px; }
 }
+
+.tl-node__emoji {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.tl-tech {
+  margin-top: var(--space-4);
+}
+
+.tl-tech__label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.tl-project {
+  margin-top: var(--space-4);
+  text-decoration: none;
+}

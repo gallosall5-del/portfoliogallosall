@@ -107,7 +107,7 @@ function EducationStairs({ education }) {
   return (
     <Stage3D
       camera={{ position: [0, 2.2, 5.2], fov: 50 }}
-      hint="Cliquez sur une marche pour voir le diplôme"
+      hint="👆 Cliquez sur une marche pour voir le diplôme"
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[2, 5, 4]} intensity={1.4} />

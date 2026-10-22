@@ -120,3 +120,65 @@
   justify-content: center;
   margin-top: var(--space-6);
 }
+
+button.proj-link {
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.project-status {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Fenêtre de détails d'un projet */
+.project-modal {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.project-modal .modal-header {
+  border-bottom-color: var(--border);
+}
+
+.project-modal .modal-title {
+  font-family: var(--font-display);
+}
+
+.project-modal .project-card__media {
+  margin-bottom: 1rem;
+}
+
+.project-modal__role {
+  margin: 0.5rem 0 1rem;
+  color: var(--text-muted);
+}
+
+.project-modal .project-card__tags {
+  margin-top: 1rem;
+}
+
+/* Mobile : description raccourcie, le détail est dans la fenêtre */
+@media (max-width: 600px) {
+  .project-card .project-card__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-card .project-card__tags .project-tag:nth-child(n + 4) {
+    display: none;
+  }
+}

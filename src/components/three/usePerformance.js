@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
+const prefersReducedMotion = () => typeof window !== 'undefined'
+  && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 const isLowPower = () => typeof window !== 'undefined'
   && window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
 
@@ -8,6 +11,7 @@ export default function usePerformance() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(true);
   const [lowPower] = useState(isLowPower);
+  const [reducedMotion] = useState(prefersReducedMotion);
 
   useEffect(() => {
     const el = ref.current;
@@ -20,8 +24,10 @@ export default function usePerformance() {
   return {
     ref,
     lowPower,
-    // Le rendu s'arrête quand la scène n'est pas visible.
-    frameloop: visible ? 'always' : 'never',
+    reducedMotion,
+    // Le rendu s'arrête hors écran ; avec « réduire les animations », la scène
+    // n'est redessinée que lorsqu'on interagit avec elle.
+    frameloop: (!visible && 'never') || (reducedMotion && 'demand') || 'always',
     dpr: lowPower ? [1, 1.25] : [1, 1.75],
   };
 }

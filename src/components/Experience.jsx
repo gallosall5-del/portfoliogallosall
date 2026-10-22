@@ -1,11 +1,13 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/timeline.css';
+import '../css/projects.css';
 
 const DakarMap = React.lazy(() => import('./three/DakarMap'));
 
@@ -36,7 +38,9 @@ function Experience(props) {
                 <div className="tl-item" key={item.title + item.dateText}>
                   <div className="tl-node--dot" />
                   <div className="tl-card">
-                    <div className="tl-date">{item.dateText}</div>
+                    <div className="tl-date">
+                      {item.period ? `${item.period} · ${item.dateText}` : item.dateText}
+                    </div>
                     <h3 className="tl-title">{item.title}</h3>
                     <div className="tl-subtitle">
                       <span className="accent">{item.subtitle}</span>
@@ -51,6 +55,19 @@ function Experience(props) {
                         </li>
                       ))}
                     </ul>
+                    {item.tech?.length > 0 && (
+                      <div className="tl-tech">
+                        <span className="tl-tech__label">Technologies utilisées</span>
+                        <div className="project-card__tags">
+                          {item.tech.map((t) => <span key={t} className="project-tag">{t}</span>)}
+                        </div>
+                      </div>
+                    )}
+                    {item.project && (
+                      <Link className="proj-link tl-project" to="/projects">
+                        {`Voir le projet ${item.project} →`}
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}

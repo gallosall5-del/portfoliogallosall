@@ -1,4 +1,49 @@
 {
-    "about": "Je suis **Gallo SALL**, développeur **Full-Stack en devenir** basé à Dakar (Grand Yoff), au Sénégal.\n\nFéru de conception d'**applications mobiles**, d'élaboration de **solutions web** et d'**intelligence artificielle**, j'ai bâti une expérience solide à travers des stages en entreprise et la conduite de plusieurs projets, dont certains à destination d'organismes institutionnels et privés, comme la **Police Nationale du Sénégal**.\n\n**Ce que je fais :** développement web (React, Angular), mobile (Flutter), backend (Laravel, Symfony, Node.js), conception d'API REST documentées avec Swagger, tableaux de bord interactifs et intégration de chatbots et fonctionnalités d'IA.\n\n**Langues :** Wolof (maternelle), Français (courant), Anglais (intermédiaire).\n\n**Loisirs :** football, cinéma, art & culture.",
-    "imageSource": "images/about/profile.webp"
+    "about": "Je suis **Gallo SALL**, développeur **Full-Stack en devenir** basé à Dakar (Grand Yoff), au Sénégal.\n\nFéru de conception d'**applications mobiles**, d'élaboration de **solutions web** et d'**intelligence artificielle**, j'ai bâti une expérience solide à travers des stages en entreprise et la conduite de plusieurs projets, dont certains à destination d'organismes institutionnels et privés, comme la **Police Nationale du Sénégal**.\n\n**Ce que je fais :** développement web (React, Angular), mobile (Flutter), backend (Laravel, Symfony, Node.js), API REST documentées avec Swagger, tableaux de bord interactifs et intégration de chatbots et fonctionnalités d'IA.",
+    "imageSource": "images/about/profile.webp",
+    "stats": [
+        {
+            "value": "2",
+            "label": "stages en entreprise"
+        },
+        {
+            "value": "4",
+            "label": "projets réalisés"
+        },
+        {
+            "value": "25",
+            "label": "technologies"
+        }
+    ],
+    "languages": [
+        {
+            "flag": "🇸🇳",
+            "name": "Wolof",
+            "level": "Langue maternelle"
+        },
+        {
+            "flag": "🇫🇷",
+            "name": "Français",
+            "level": "Courant"
+        },
+        {
+            "flag": "🇬🇧",
+            "name": "Anglais",
+            "level": "Intermédiaire"
+        }
+    ],
+    "hobbies": [
+        {
+            "icon": "⚽",
+            "label": "Football"
+        },
+        {
+            "icon": "🎬",
+            "label": "Cinéma"
+        },
+        {
+            "icon": "🎨",
+            "label": "Art & Culture"
+        }
+    ]
 }

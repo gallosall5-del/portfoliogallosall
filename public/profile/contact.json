@@ -1,0 +1,45 @@
+{
+    "intro": "Un projet, un stage ou une opportunité ? Je réponds rapidement — le plus simple est WhatsApp ou l'e-mail.",
+    "availability": "Disponible pour des opportunités",
+    "items": [
+        {
+            "icon": "💬",
+            "label": "WhatsApp",
+            "value": "+221 70 820 48 68",
+            "href": "https://wa.me/221708204868",
+            "primary": true
+        },
+        {
+            "icon": "✉️",
+            "label": "E-mail",
+            "value": "gallosall5@gmail.com",
+            "href": "mailto:gallosall5@gmail.com",
+            "primary": true
+        },
+        {
+            "icon": "📞",
+            "label": "Téléphone",
+            "value": "+221 78 316 10 35",
+            "href": "tel:+221783161035"
+        },
+        {
+            "icon": "💼",
+            "label": "LinkedIn",
+            "value": "Gallo Sall",
+            "href": "https://www.linkedin.com/in/gallo-sall-27873b354"
+        },
+        {
+            "icon": "🐙",
+            "label": "GitHub",
+            "value": "gallosall5-del",
+            "href": "https://github.com/gallosall5-del"
+        },
+        {
+            "icon": "📍",
+            "label": "Localisation",
+            "value": "Grand Yoff, Dakar — Sénégal",
+            "href": ""
+        }
+    ],
+    "cv": "CV_Gallo_Sall.pdf"
+}

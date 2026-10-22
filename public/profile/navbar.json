@@ -30,6 +30,10 @@
             "href": "/projects"
         },
         {
+            "title": "Contact",
+            "href": "/contact"
+        },
+        {
             "title": "CV",
             "href": "/CV_Gallo_Sall.pdf",
             "type": "link"

@@ -18,11 +18,18 @@
                 },
                 {
                     "icon": "images/skills/typescript.png",
-                    "title": "TypeScript"
+                    "title": "TypeScript",
+                    "usedIn": [
+                        "Portfolio"
+                    ]
                 },
                 {
                     "icon": "images/skills/react.png",
-                    "title": "React"
+                    "title": "React",
+                    "usedIn": [
+                        "Teranga GESCRIM",
+                        "Portfolio"
+                    ]
                 },
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/angular/angular-original.svg",
@@ -30,7 +37,10 @@
                 },
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg",
-                    "title": "Tailwind CSS"
+                    "title": "Tailwind CSS",
+                    "usedIn": [
+                        "Teranga GESCRIM"
+                    ]
                 }
             ]
         },
@@ -43,7 +53,10 @@
                 },
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/laravel/laravel-original.svg",
-                    "title": "Laravel"
+                    "title": "Laravel",
+                    "usedIn": [
+                        "Teranga GESCRIM"
+                    ]
                 },
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/symfony/symfony-original.svg",
@@ -51,7 +64,10 @@
                 },
                 {
                     "icon": "images/skills/nodejs.png",
-                    "title": "Node.js"
+                    "title": "Node.js",
+                    "usedIn": [
+                        "EGL Company"
+                    ]
                 },
                 {
                     "icon": "images/skills/python.png",
@@ -64,15 +80,27 @@
             "items": [
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/flutter/flutter-original.svg",
-                    "title": "Flutter"
+                    "title": "Flutter",
+                    "usedIn": [
+                        "Teranga GESCRIM",
+                        "EGL Company",
+                        "Mouride DC"
+                    ]
                 },
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/dart/dart-original.svg",
-                    "title": "Dart"
+                    "title": "Dart",
+                    "usedIn": [
+                        "EGL Company",
+                        "Mouride DC"
+                    ]
                 },
                 {
                     "icon": "images/skills/firebase.png",
-                    "title": "Firebase"
+                    "title": "Firebase",
+                    "usedIn": [
+                        "Mouride DC"
+                    ]
                 },
                 {
                     "icon": "images/skills/android-studio.png",
@@ -85,7 +113,10 @@
             "items": [
                 {
                     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/postgresql/postgresql-original.svg",
-                    "title": "PostgreSQL"
+                    "title": "PostgreSQL",
+                    "usedIn": [
+                        "Teranga GESCRIM"
+                    ]
                 },
                 {
                     "icon": "images/skills/mysql.png",

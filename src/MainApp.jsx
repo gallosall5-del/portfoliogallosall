@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import FallbackSpinner from './components/FallbackSpinner';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
+import Footer from './components/Footer';
 import endpoints from './constants/endpoints';
 
 const ParticlesBackground = React.lazy(() => import('./components/three/ParticlesBackground'));
@@ -43,6 +44,7 @@ function MainApp() {
           </Routes>
         </Suspense>
       </main>
+      <Footer />
     </div>
   );
 }

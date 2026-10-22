@@ -1,5 +1,6 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
 import Header from './Header';
@@ -36,9 +37,44 @@ function About(props) {
               <div className="tile about-bio-tile span-4 rspan-2">
                 <ReactMarkdown>{data.about}</ReactMarkdown>
               </div>
-              {data?.imageSource && (
-                <div className="tile about-image-tile span-2 rspan-2">
-                  <img src={data.imageSource} alt="profile" />
+              {/* La photo est déjà dans la scène 3D : ici, les chiffres clés et les actions. */}
+              <div className="tile about-stats-tile span-2 rspan-2">
+                {data.stats?.map((stat) => (
+                  <div key={stat.label} className="about-stat">
+                    <span className="about-stat__value">{stat.value}</span>
+                    <span className="about-stat__label">{stat.label}</span>
+                  </div>
+                ))}
+                <div className="about-actions">
+                  <Link className="btn-pill btn-accent" to="/contact">Me contacter</Link>
+                  <a className="btn-pill btn-ghost" href="CV_Gallo_Sall.pdf" download>📄 Mon CV</a>
+                </div>
+              </div>
+              {data.languages && (
+                <div className="tile span-3">
+                  <h3 className="about-subtitle">Langues</h3>
+                  <div className="about-chips">
+                    {data.languages.map((lang) => (
+                      <span key={lang.name} className="about-chip">
+                        <span aria-hidden="true">{lang.flag}</span>
+                        <strong>{lang.name}</strong>
+                        <small>{lang.level}</small>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {data.hobbies && (
+                <div className="tile span-3">
+                  <h3 className="about-subtitle">Loisirs</h3>
+                  <div className="about-chips">
+                    {data.hobbies.map((hobby) => (
+                      <span key={hobby.label} className="about-chip">
+                        <span aria-hidden="true">{hobby.icon}</span>
+                        <strong>{hobby.label}</strong>
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

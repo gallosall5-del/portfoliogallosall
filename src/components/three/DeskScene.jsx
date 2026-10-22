@@ -7,10 +7,12 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
-  ContactShadows, Html, useCursor, useGLTF, useProgress, useTexture,
+  ContactShadows, Html, RoundedBox, useCursor, useGLTF, useProgress, useTexture,
 } from '@react-three/drei';
 import * as THREE from 'three';
 import usePerformance from './usePerformance';
+import useStageColors from './useStageColors';
+import Robot from './Robot';
 import '../../css/desk3d.css';
 
 // Modèles Poly Haven (CC0), unités en mètres. Le plateau du bureau est à 0.788 m.
@@ -52,13 +54,19 @@ function useScreenTexture() {
 
 // Objet cliquable : léger soulèvement + étiquette au survol.
 function Interactive({
-  label, onClick, children, ...props
+  label, onClick, onHover, children, ...props
 }) {
   const ref = useRef();
   const [hovered, setHovered] = useState(false);
+  const [taken, setTaken] = useState(false);
   useCursor(hovered);
+  const hover = (on) => {
+    setHovered(on);
+    onHover(on ? ref.current.getWorldPosition(new THREE.Vector3()) : null);
+  };
   useFrame((_, delta) => {
-    if (!ref.current) return;
+    // Pendant que le robot tient l'objet, c'est lui qui le déplace.
+    if (!ref.current || ref.current.userData.held) return;
     const target = hovered ? 0.03 : 0;
     ref.current.position.y = THREE.MathUtils.damp(ref.current.position.y, target, 8, delta);
   });
@@ -66,13 +74,17 @@ function Interactive({
     <group {...props}>
       <group
         ref={ref}
-        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
-        onPointerOut={() => setHovered(false)}
-        onClick={(e) => { e.stopPropagation(); onClick(); }}
+        onPointerOver={(e) => { e.stopPropagation(); hover(true); }}
+        onPointerOut={() => hover(false)}
+        onClick={(e) => {
+          e.stopPropagation();
+          // L'étiquette disparaît dès que le robot prend l'objet.
+          if (onClick(ref.current)) setTaken(true);
+        }}
       >
         {children}
       </group>
-      {hovered && (
+      {hovered && !taken && (
         <Html center position={[0, 0.42, 0]} className="desk3d-label" zIndexRange={[20, 0]}>
           {label}
         </Html>
@@ -83,8 +95,14 @@ function Interactive({
 
 Interactive.propTypes = {
   label: PropTypes.string.isRequired,
+  // Renvoie true si l'objet est emporté (l'étiquette est alors masquée).
   onClick: PropTypes.func.isRequired,
+  onHover: PropTypes.func,
   children: PropTypes.node.isRequired,
+};
+
+Interactive.defaultProps = {
+  onHover: () => {},
 };
 
 function Model({ id, ...props }) {
@@ -115,6 +133,49 @@ function Laptop() {
         <meshBasicMaterial map={screen} toneMapped={false} />
       </mesh>
       <pointLight position={[0, 0.32, 0.05]} intensity={0.6} distance={1} color="#93c5fd" />
+    </group>
+  );
+}
+
+// Téléphone posé sur un petit support, écran tourné vers le visiteur.
+function usePhoneScreen() {
+  return useMemo(() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 512);
+    grad.addColorStop(0, '#4f46e5');
+    grad.addColorStop(1, '#7c3aed');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 256, 512);
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.font = '120px sans-serif';
+    ctx.fillText('💬', 128, 250);
+    ctx.font = '700 40px Inter, sans-serif';
+    ctx.fillText('Contact', 128, 340);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  }, []);
+}
+
+function Phone() {
+  const screen = usePhoneScreen();
+  return (
+    <group rotation={[-0.35, 0, 0]} position={[0, 0.075, 0]}>
+      <RoundedBox args={[0.075, 0.15, 0.009]} radius={0.008} smoothness={4} castShadow>
+        <meshStandardMaterial color="#111827" metalness={0.6} roughness={0.3} />
+      </RoundedBox>
+      <mesh position={[0, 0, 0.0047]}>
+        <planeGeometry args={[0.066, 0.138]} />
+        <meshBasicMaterial map={screen} toneMapped={false} />
+      </mesh>
+      <mesh position={[0, -0.06, -0.03]} rotation={[0.9, 0, 0]}>
+        <boxGeometry args={[0.05, 0.004, 0.07]} />
+        <meshStandardMaterial color="#9ca3af" metalness={0.8} roughness={0.3} />
+      </mesh>
     </group>
   );
 }
@@ -151,45 +212,20 @@ function PhotoFrame() {
   return <primitive object={clone} />;
 }
 
-// Le ballon fait trois rebonds puis ouvre la page « À propos » (loisirs).
-const BALL_RADIUS = 0.11;
-
-function Football() {
-  const navigate = useNavigate();
-  const bounce = useRef();
-  const spin = useRef();
-  const kick = useRef(0);
-  useFrame((_, rawDelta) => {
-    if (!bounce.current || kick.current <= 0) return;
-    // Plafonné pour que l'animation reste visible même si une image est lente.
-    const delta = Math.min(rawDelta, 1 / 30);
-    kick.current = Math.max(0, kick.current - delta / 1.2);
-    const t = 1 - kick.current;
-    bounce.current.position.y = BALL_RADIUS
-      + Math.abs(Math.sin(t * Math.PI * 3)) * 0.3 * (1 - t);
-    spin.current.rotation.x -= delta * 10 * (1 - t);
-    if (kick.current === 0) navigate('/about');
-  });
-  return (
-    <Interactive
-      label="⚽ Mes loisirs : football, cinéma, art"
-      onClick={() => { if (kick.current === 0) kick.current = 1; }}
-      position={[0.5, DESK_TOP, 0.3]}
-    >
-      {/* Pivot au centre du ballon pour qu'il tourne sur lui-même */}
-      <group ref={bounce} position={[0, BALL_RADIUS, 0]}>
-        <group ref={spin}>
-          <Model id="dirty_football" position={[0, -BALL_RADIUS, 0]} />
-        </group>
-      </group>
-    </Interactive>
-  );
-}
-
-function Lamp() {
+function Lamp({ onToggle, onHover }) {
   const [on, setOn] = useState(true);
   return (
-    <Interactive label={on ? '💡 Éteindre la lampe' : '💡 Allumer la lampe'} onClick={() => setOn(!on)} position={[0.72, DESK_TOP, -0.2]} rotation={[0, -0.6, 0]}>
+    <Interactive
+      label={on ? '💡 Éteindre la lampe' : '💡 Allumer la lampe'}
+      onClick={(object) => {
+        setOn(!on);
+        onToggle(object);
+        return false;
+      }}
+      onHover={onHover}
+      position={[0.72, DESK_TOP, -0.2]}
+      rotation={[0, -0.6, 0]}
+    >
       <Model id="desk_lamp_arm_01" />
       <spotLight
         position={[0, 0.7, 0.2]}
@@ -204,27 +240,54 @@ function Lamp() {
   );
 }
 
+Lamp.propTypes = {
+  onToggle: PropTypes.func.isRequired,
+  onHover: PropTypes.func.isRequired,
+};
+
 // Léger mouvement de caméra qui suit la souris.
 function CameraRig() {
   useFrame((state, delta) => {
     const { camera, pointer, size } = state;
     // Recule la caméra sur les écrans étroits pour garder tout le bureau dans le cadre.
     const halfFov = THREE.MathUtils.degToRad(camera.fov / 2);
-    const distance = Math.max(2.1, 0.85 / (Math.tan(halfFov) * (size.width / size.height)));
+    const distance = Math.max(2.45, 0.95 / (Math.tan(halfFov) * (size.width / size.height)));
     camera.position.z = THREE.MathUtils.damp(camera.position.z, distance, 3, delta);
     camera.position.x = THREE.MathUtils.damp(camera.position.x, pointer.x * 0.35, 3, delta);
     camera.position.y = THREE.MathUtils.damp(camera.position.y, 1.4 + pointer.y * 0.15, 3, delta);
-    camera.lookAt(0, 0.95, 0);
+    camera.lookAt(0.1, 0.78, 0.2);
   });
   return null;
 }
 
-function Scene() {
+const CHAIR_POS = [0.62, 0, 0.72];
+const CHAIR_ROT = Math.PI + 0.75;
+
+function Scene({ reducedMotion, colors }) {
   const navigate = useNavigate();
+  const robot = useRef();
+  // Le robot apporte l'objet cliqué, puis la page correspondante s'ouvre.
+  const bring = (route, gesture) => (object) => {
+    // « Réduire les animations » : pas de chorégraphie, la page s'ouvre directement.
+    if (reducedMotion) {
+      navigate(route);
+      return false;
+    }
+    // Deuxième clic pendant l'animation : la page s'ouvre tout de suite.
+    if (robot.current.busy()) {
+      robot.current.skip();
+      return false;
+    }
+    robot.current.give(object, () => navigate(route), gesture);
+    return true;
+  };
+  // Le robot regarde l'objet survolé.
+  const look = (point) => robot.current?.lookAt(point);
+  const items = { onHover: look };
   return (
     <>
-      <color attach="background" args={['#05070d']} />
-      <fog attach="fog" args={['#05070d', 4.5, 10]} />
+      <color attach="background" args={[colors.background]} />
+      <fog attach="fog" args={[colors.background, 4.5, 10]} />
       <ambientLight intensity={0.35} />
       <directionalLight
         position={[2, 4, 3]}
@@ -236,35 +299,52 @@ function Scene() {
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <circleGeometry args={[6, 64]} />
-        <meshStandardMaterial color="#0d1424" roughness={0.9} />
+        <meshStandardMaterial color={colors.floor} roughness={0.9} />
       </mesh>
 
       <Model id="metal_office_desk" />
-      <Model id="plastic_monobloc_chair_01" position={[0.1, 0, 0.8]} rotation={[0, Math.PI + 0.25, 0]} />
+      <Model id="plastic_monobloc_chair_01" position={CHAIR_POS} rotation={[0, CHAIR_ROT, 0]} />
+      <Robot ref={robot} position={[CHAIR_POS[0], 0, CHAIR_POS[2]]} seatRotation={CHAIR_ROT} />
 
-      <Interactive label="💻 Mes projets" onClick={() => navigate('/projects')} position={[0, DESK_TOP, 0.05]}>
+      <Interactive {...items} label="💻 Mes projets" onClick={bring('/projects')} position={[0, DESK_TOP, 0.05]}>
         <Laptop />
       </Interactive>
-      <Interactive label="📚 Ma formation" onClick={() => navigate('/education')} position={[-0.92, DESK_TOP, -0.3]}>
+      <Interactive {...items} label="📚 Ma formation" onClick={bring('/education', 'Yes')} position={[-0.92, DESK_TOP, -0.3]}>
         <Model id="book_encyclopedia_set_01" />
       </Interactive>
-      <Interactive label="📁 Mon expérience" onClick={() => navigate('/experience')} position={[-0.55, DESK_TOP, 0.22]} rotation={[0, 0.35, 0]}>
+      <Interactive {...items} label="📁 Mon expérience" onClick={bring('/experience')} position={[-0.55, DESK_TOP, 0.22]} rotation={[0, 0.35, 0]}>
         <Model id="binder_notebook" />
       </Interactive>
-      <Interactive label="🙂 À propos de moi" onClick={() => navigate('/about')} position={[-0.5, DESK_TOP, -0.12]} rotation={[0, -Math.PI / 2 + 0.4, 0]}>
+      <Interactive {...items} label="🙂 À propos de moi" onClick={bring('/about', 'Wave')} position={[-0.5, DESK_TOP, -0.12]} rotation={[0, -Math.PI / 2 + 0.4, 0]}>
         <PhotoFrame />
       </Interactive>
-      <Interactive label="🛠️ Mes compétences" onClick={() => navigate('/skills')} position={[0.45, DESK_TOP, -0.28]}>
+      <Interactive {...items} label="🛠️ Mes compétences" onClick={bring('/skills', 'Yes')} position={[0.45, DESK_TOP, -0.28]}>
         <Model id="potted_plant_04" />
       </Interactive>
-      <Lamp />
-      <Football />
+      <Interactive {...items} label="📱 Me contacter" onClick={bring('/contact', 'Wave')} position={[0.22, DESK_TOP, 0.33]} rotation={[0, -0.25, 0]}>
+        <Phone />
+      </Interactive>
+      <Lamp
+        onHover={look}
+        onToggle={(object) => robot.current.react(object.getWorldPosition(new THREE.Vector3()), 'Wave')}
+      />
+      <Interactive {...items} label="⚽ Mes loisirs : football, cinéma, art" onClick={bring('/about', 'Wave')} position={[0.5, DESK_TOP, 0.3]}>
+        <Model id="dirty_football" />
+      </Interactive>
 
       <ContactShadows position={[0, 0.001, 0]} opacity={0.5} scale={6} blur={2.4} far={2} />
       <CameraRig />
     </>
   );
 }
+
+Scene.propTypes = {
+  reducedMotion: PropTypes.bool.isRequired,
+  colors: PropTypes.shape({
+    background: PropTypes.string.isRequired,
+    floor: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 // Écran de chargement : s'efface tout seul dès que la scène est prête.
 function Loader({ onReady }) {
@@ -289,19 +369,20 @@ Loader.propTypes = { onReady: PropTypes.func.isRequired };
 function DeskScene() {
   const [entered, setEntered] = useState(false);
   const {
-    ref, frameloop, dpr, lowPower,
+    ref, frameloop, dpr, lowPower, reducedMotion,
   } = usePerformance();
+  const colors = useStageColors();
 
   return (
-    <section ref={ref} className="desk3d">
-      <Canvas shadows={!lowPower} dpr={dpr} frameloop={frameloop} camera={{ position: [0, 1.4, 2.1], fov: 45 }}>
+    <section ref={ref} className="desk3d" style={{ background: colors.background }}>
+      <Canvas shadows={!lowPower} dpr={dpr} frameloop={frameloop} camera={{ position: [0, 1.4, 2.45], fov: 45 }}>
         <Suspense fallback={null}>
-          <Scene />
+          <Scene reducedMotion={reducedMotion} colors={colors} />
         </Suspense>
       </Canvas>
       {!entered && <Loader onReady={() => setEntered(true)} />}
       {entered && (
-        <p className="desk3d-hint">Cliquez sur les objets du bureau pour explorer · Faites défiler pour la suite ↓</p>
+        <p className="desk3d-hint">👆 Cliquez sur un objet du bureau : le robot vous l'apporte · Faites défiler ↓</p>
       )}
     </section>
   );

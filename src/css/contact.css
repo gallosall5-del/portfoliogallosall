@@ -1,0 +1,82 @@
+.contact-intro {
+  text-align: left;
+}
+
+.contact-intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0.75rem 0 1.25rem;
+  color: var(--text);
+}
+
+.contact-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.contact-card:hover {
+  color: var(--text);
+}
+
+.contact-card__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.contact-card__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.contact-card__value {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* Pied de page commun */
+.site-footer {
+  max-width: 1080px;
+  margin: 3rem auto 0;
+  padding: 1.5rem 16px 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+.MainApp > .site-footer {
+  position: relative;
+  z-index: 1;
+}

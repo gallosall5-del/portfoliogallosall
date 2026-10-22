@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { Html, OrbitControls, useCursor } from '@react-three/drei';
 import * as THREE from 'three';
 import Stage3D from './Stage3D';
+import useStageColors from './useStageColors';
 
 // Contour simplifié de la presqu'île du Cap-Vert (longitude, latitude).
 const COAST = [
@@ -140,6 +141,7 @@ Pin.propTypes = {
 
 function DakarMap({ experiences }) {
   const [selected, setSelected] = useState(null);
+  const colors = useStageColors();
   const places = PLACES.map((p) => {
     const exp = p.match && experiences.find((e) => e.subtitle.includes(p.match));
     if (!exp) return p;
@@ -153,9 +155,9 @@ function DakarMap({ experiences }) {
   return (
     <Stage3D
       camera={{ position: [0, 3.4, 3.6], fov: 45 }}
-      hint="Cliquez sur un repère · Faites glisser pour tourner autour de Dakar"
+      hint="📍 Cliquez sur un repère · 🖱️ Faites glisser pour tourner autour de Dakar"
     >
-      <fog attach="fog" args={['#05070d', 6, 13]} />
+      <fog attach="fog" args={[colors.background, 6, 13]} />
       <ambientLight intensity={0.6} />
       <directionalLight position={[3, 6, 2]} intensity={1.3} />
       <Ocean />

@@ -3,12 +3,7 @@
         {
             "title": "Teranga GESCRIM",
             "bodyText": "- Système de gestion de la criminalité pour la **Police Nationale du Sénégal** (Direction de la Sécurité Publique).\n- Regroupe rapports, infractions, incidents, accidents et immigration : **dématérialisation totale** des processus papier.\n- Dashboard analytique avec graphiques interactifs, gestion territoriale multi-niveaux.\n- Application mobile de terrain, système de rôles et permissions, export PDF/Excel.",
-            "links": [
-                {
-                    "text": "GitHub",
-                    "href": "https://github.com/gallosall5-del"
-                }
-            ],
+            "links": [],
             "tags": [
                 "React",
                 "Laravel",
@@ -16,56 +11,50 @@
                 "PostgreSQL",
                 "Tailwind CSS"
             ],
-            "image": "images/projects/teranga-gescrim.webp"
+            "image": "images/projects/teranga-gescrim.webp",
+            "status": "Projet de stage · Police Nationale",
+            "role": "Développeur (stage Namastech) — modules rapports & infractions"
         },
         {
             "title": "EGL Company",
             "bodyText": "- Application mobile **e-commerce et gestion des ventes** de produits alimentaires frais (viandes, œufs, charcuteries).\n- Catalogue produits, paiement en ligne sécurisé, suivi de livraison.\n- Disponible sur **Play Store** et **App Store**.",
-            "links": [
-                {
-                    "text": "GitHub",
-                    "href": "https://github.com/gallosall5-del"
-                }
-            ],
+            "links": [],
             "tags": [
                 "Flutter",
                 "Node.js",
                 "API REST"
             ],
-            "image": "images/projects/egl-company.webp"
+            "image": "images/projects/egl-company.webp",
+            "status": "Sur Play Store & App Store",
+            "role": "Développeur mobile (stage ITEA) — conception de l'application"
         },
         {
             "title": "Mouride Digital Content",
             "bodyText": "- Application mobile regroupant le **Coran**, les **hadiths** et les **enseignements mourides** du Sénégal.",
-            "links": [
-                {
-                    "text": "GitHub",
-                    "href": "https://github.com/gallosall5-del"
-                }
-            ],
+            "links": [],
             "tags": [
                 "Flutter",
                 "Mobile"
             ],
             "image": "images/projects/mouride-digital-content.webp",
             "imageFit": "contain",
-            "imageBackground": "#013a1f"
+            "imageBackground": "#013a1f",
+            "status": "Application mobile",
+            "role": "Conception et développement"
         },
         {
             "title": "Portfolio Personnel",
-            "bodyText": "- Portfolio web développé avec **React** et **TypeScript**.\n- Animations fluides, mode sombre/clair, design responsive.",
-            "links": [
-                {
-                    "text": "GitHub",
-                    "href": "https://github.com/gallosall5-del"
-                }
-            ],
+            "bodyText": "- Portfolio web développé avec **React** et **Three.js**.\n- Accueil en **3D** : un bureau interactif avec un robot qui apporte chaque section.\n- Une scène 3D par page, mode sombre/clair, design responsive.",
+            "links": [],
             "tags": [
                 "React",
-                "TypeScript",
-                "Tailwind CSS",
-                "Framer Motion"
-            ]
+                "Three.js",
+                "React Three Fiber",
+                "Vite"
+            ],
+            "status": "En ligne",
+            "role": "Conception, développement et scènes 3D",
+            "image": "images/projects/portfolio-3d.webp"
         }
     ]
 }

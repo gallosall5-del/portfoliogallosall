@@ -23,12 +23,18 @@ function fibonacciSphere(n) {
   return points;
 }
 
-function SkillIcon({ position, texture, title }) {
+function SkillIcon({
+  position, texture, title, dimmed,
+}) {
   const ref = useRef();
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
   useFrame((_, delta) => {
-    const s = THREE.MathUtils.damp(ref.current.scale.x, hovered ? 1.45 : 1, 10, delta);
+    let target = 1;
+    if (hovered) target = 1.45;
+    else if (dimmed === false) target = 1.25;
+    else if (dimmed) target = 0.7;
+    const s = THREE.MathUtils.damp(ref.current.scale.x, target, 10, delta);
     ref.current.scale.setScalar(s);
   });
   return (
@@ -40,11 +46,15 @@ function SkillIcon({ position, texture, title }) {
       >
         <mesh>
           <circleGeometry args={[0.27, 40]} />
-          <meshBasicMaterial color={hovered ? '#c7d2fe' : '#f1f5f9'} />
+          <meshBasicMaterial
+            color={hovered ? '#c7d2fe' : '#f1f5f9'}
+            transparent
+            opacity={dimmed ? 0.18 : 1}
+          />
         </mesh>
         <mesh position={[0, 0, 0.01]}>
           <planeGeometry args={[0.34, 0.34]} />
-          <meshBasicMaterial map={texture} transparent toneMapped={false} />
+          <meshBasicMaterial map={texture} transparent opacity={dimmed ? 0.2 : 1} toneMapped={false} />
         </mesh>
       </group>
       {hovered && (
@@ -60,9 +70,13 @@ SkillIcon.propTypes = {
   position: PropTypes.instanceOf(THREE.Vector3).isRequired,
   texture: PropTypes.instanceOf(THREE.Texture).isRequired,
   title: PropTypes.string.isRequired,
+  // true = estompé, false = mis en avant, null = normal.
+  dimmed: PropTypes.bool,
 };
 
-function Cloud({ items }) {
+SkillIcon.defaultProps = { dimmed: null };
+
+function Cloud({ items, highlight }) {
   // Les SVG sans taille fixe s'affichent vides en texture : on les dessine
   // d'abord sur un canvas carré.
   const images = useLoader(THREE.ImageLoader, items.map((i) => i.icon));
@@ -83,7 +97,13 @@ function Cloud({ items }) {
   return (
     <group>
       {items.map((item, i) => (
-        <SkillIcon key={item.title} position={points[i]} texture={textures[i]} title={item.title} />
+        <SkillIcon
+          key={item.title}
+          position={points[i]}
+          texture={textures[i]}
+          title={item.title}
+          dimmed={highlight ? !highlight.includes(item.title) : null}
+        />
       ))}
       <mesh>
         <sphereGeometry args={[RADIUS * 0.92, 32, 32]} />
@@ -98,20 +118,24 @@ Cloud.propTypes = {
     icon: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   })).isRequired,
+  highlight: PropTypes.arrayOf(PropTypes.string),
 };
 
-function SkillsSphere({ items }) {
+Cloud.defaultProps = { highlight: null };
+
+function SkillsSphere({ items, highlight }) {
   return (
     <Stage3D
       camera={{ position: [0, 0, 6.2], fov: 50 }}
-      hint="Faites tourner la sphère · Survolez un logo pour voir son nom"
+      hint="🖱️ Faites tourner la sphère · Survolez un logo pour voir son nom"
     >
-      <Cloud items={items} />
+      <Cloud items={items} highlight={highlight} />
       <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1.2} />
     </Stage3D>
   );
 }
 
 SkillsSphere.propTypes = Cloud.propTypes;
+SkillsSphere.defaultProps = Cloud.defaultProps;
 
 export default SkillsSphere;

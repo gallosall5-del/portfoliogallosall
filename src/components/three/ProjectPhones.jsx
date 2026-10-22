@@ -125,7 +125,7 @@ function ProjectPhones({ projects }) {
   const current = withImages[index];
   return (
     <div className="stage3d-wrap">
-      <Stage3D camera={{ position: [0, 0.2, 3.6], fov: 45 }} hint="Cliquez sur un téléphone ou utilisez les flèches">
+      <Stage3D camera={{ position: [0, 0.2, 3.6], fov: 45 }} hint="👆 Cliquez sur un téléphone ou utilisez les flèches ‹ ›">
         <ambientLight intensity={0.5} />
         <directionalLight position={[3, 4, 5]} intensity={1.4} />
         <pointLight position={[-3, 1, 2]} intensity={2} color="#818cf8" />

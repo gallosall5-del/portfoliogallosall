@@ -113,7 +113,7 @@ function AboutCard({ image }) {
   return (
     <Stage3D
       camera={{ position: [0, 0, 5.2], fov: 45 }}
-      hint="Bougez la souris pour incliner la carte"
+      hint="🖱️ Bougez la souris pour incliner la carte"
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[2, 3, 4]} intensity={1.3} />

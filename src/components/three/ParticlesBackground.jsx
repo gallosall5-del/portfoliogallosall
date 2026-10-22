@@ -36,6 +36,8 @@ function Dust() {
 
 // Poussière lumineuse discrète derrière tout le site.
 function ParticlesBackground() {
+  if (typeof window !== 'undefined'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   return (
     <div className="particles-bg" aria-hidden="true">
       <Canvas dpr={1} camera={{ position: [0, 0, 6], fov: 60 }} gl={{ alpha: true }}>

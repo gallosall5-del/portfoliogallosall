@@ -9,7 +9,15 @@
                 "Travail en équipe sur la conception des modules de gestion des **rapports** et **infractions**.",
                 "Acquisition des méthodes et pratiques professionnelles en environnement web et mobile."
             ],
-            "dateText": "2 mois"
+            "dateText": "2 mois",
+            "period": "",
+            "tech": [
+                "React",
+                "Laravel",
+                "Flutter",
+                "PostgreSQL"
+            ],
+            "project": "Teranga GESCRIM"
         },
         {
             "title": "Stagiaire Développeur",
@@ -19,7 +27,14 @@
                 "Conception de l'application mobile **EGL Company** pour la gestion des ventes.",
                 "Implication dans l'élaboration d'une solution adaptée à la vente de produits de consommation."
             ],
-            "dateText": "5 mois"
+            "dateText": "5 mois",
+            "period": "",
+            "tech": [
+                "Flutter",
+                "Node.js",
+                "API REST"
+            ],
+            "project": "EGL Company"
         }
     ]
 }

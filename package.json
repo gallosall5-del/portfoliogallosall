@@ -17,6 +17,7 @@
     "react-social-icons": "^6.18.0",
     "styled-components": "^5.3.11",
     "three": "^0.170.0",
+    "three-stdlib": "^2.36.1",
     "typewriter-effect": "^2.21.0"
   },
   "browserslist": {

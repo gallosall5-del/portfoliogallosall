@@ -34,8 +34,10 @@ function Education(props) {
               {data.education?.map((item) => (
                 <div className="tl-item" key={item.cardTitle + item.title}>
                   <div className="tl-node--icon">
-                    {item.icon && (
+                    {item.icon ? (
                       <img src={item.icon.src} alt={item.icon.alt} />
+                    ) : (
+                      <span className="tl-node__emoji" aria-hidden="true">{item.emoji || '🎓'}</span>
                     )}
                   </div>
                   <div className="tl-card">

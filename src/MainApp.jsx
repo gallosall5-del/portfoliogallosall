@@ -5,6 +5,8 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import endpoints from './constants/endpoints';
 
+const ParticlesBackground = React.lazy(() => import('./components/three/ParticlesBackground'));
+
 function MainApp() {
   const [data, setData] = useState(null);
 
@@ -19,6 +21,9 @@ function MainApp() {
 
   return (
     <div className="MainApp">
+      <Suspense fallback={null}>
+        <ParticlesBackground />
+      </Suspense>
       <NavBar />
       <main className="main">
         <Suspense fallback={<FallbackSpinner />}>

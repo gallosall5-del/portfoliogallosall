@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
@@ -6,6 +6,8 @@ import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/timeline.css';
+
+const DakarMap = React.lazy(() => import('./three/DakarMap'));
 
 function Experience(props) {
   const { header } = props;
@@ -25,6 +27,9 @@ function Experience(props) {
       <Header title={header} />
       {data ? (
         <div className="section-content-container">
+          <Suspense fallback={<FallbackSpinner />}>
+            <DakarMap experiences={data} />
+          </Suspense>
           <Fade triggerOnce>
             <div className="tl tl--experience">
               {data.map((item) => (

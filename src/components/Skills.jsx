@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
@@ -6,6 +6,8 @@ import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/skills.css';
+
+const SkillsSphere = React.lazy(() => import('./three/SkillsSphere'));
 
 function Skills(props) {
   const { header } = props;
@@ -25,6 +27,9 @@ function Skills(props) {
       <Header title={header} />
       {data ? (
         <div className="section-content-container">
+          <Suspense fallback={<FallbackSpinner />}>
+            <SkillsSphere items={data.skills.flatMap((c) => c.items)} />
+          </Suspense>
           <Fade triggerOnce>
             <div className="bento">
               {data.intro && (

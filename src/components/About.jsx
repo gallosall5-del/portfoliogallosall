@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
@@ -6,6 +6,8 @@ import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/about.css';
+
+const AboutCard = React.lazy(() => import('./three/AboutCard'));
 
 function About(props) {
   const { header } = props;
@@ -25,7 +27,11 @@ function About(props) {
       <Header title={header} />
       <div className="section-content-container">
         {data ? (
-          <Fade triggerOnce>
+          <>
+            <Suspense fallback={<FallbackSpinner />}>
+              <AboutCard image={data.imageSource} />
+            </Suspense>
+            <Fade triggerOnce>
             <div className="bento">
               <div className="tile about-bio-tile span-4 rspan-2">
                 <ReactMarkdown>{data.about}</ReactMarkdown>
@@ -36,7 +42,8 @@ function About(props) {
                 </div>
               )}
             </div>
-          </Fade>
+            </Fade>
+          </>
         ) : <FallbackSpinner />}
       </div>
     </>

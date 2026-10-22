@@ -1,0 +1,141 @@
+.stage3d {
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: #05070d;
+  margin-bottom: 1.5rem;
+}
+
+.stage3d-progress {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stage3d-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(5, 7, 13, 0.7);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.78rem;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  text-align: center;
+  pointer-events: none;
+}
+
+.stage3d-label {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(5, 7, 13, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.stage3d-card {
+  width: 240px;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: rgba(5, 7, 13, 0.9);
+  border: 1px solid rgba(129, 140, 248, 0.45);
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+.stage3d-card strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.stage3d-card span {
+  color: #a5b4fc;
+}
+
+.stage3d-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(5, 7, 13, 0.7);
+  color: #fff;
+  font-size: 1.2rem;
+  z-index: 5;
+}
+
+.stage3d-nav:hover {
+  background: rgba(129, 140, 248, 0.35);
+}
+
+.stage3d-nav--prev { left: 12px; }
+.stage3d-nav--next { right: 12px; }
+
+.stage3d-caption {
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+  width: calc(100% - 32px);
+}
+
+.stage3d-caption h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin: 0;
+}
+
+.stage3d-caption p {
+  margin: 0.2rem 0 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+}
+
+/* Fond de particules commun à tout le site */
+.particles-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.MainApp > .main {
+  position: relative;
+  z-index: 1;
+}
+
+.stage3d-wrap {
+  position: relative;
+}
+
+.stage3d-wrap .stage3d {
+  margin-bottom: 1.5rem;
+}
+
+.stairs-year {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+}

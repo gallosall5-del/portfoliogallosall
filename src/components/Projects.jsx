@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import PropTypes from 'prop-types';
 import Header from './Header';
@@ -6,6 +6,8 @@ import endpoints from '../constants/endpoints';
 import ProjectCard from './projects/ProjectCard';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/projects.css';
+
+const ProjectPhones = React.lazy(() => import('./three/ProjectPhones'));
 
 const Projects = (props) => {
   const { header } = props;
@@ -28,6 +30,9 @@ const Projects = (props) => {
       <Header title={header} />
       {data ? (
         <div className="section-content-container">
+          <Suspense fallback={<FallbackSpinner />}>
+            <ProjectPhones projects={data.projects} />
+          </Suspense>
           <Fade triggerOnce>
             <div className="bento">
               {data.projects?.slice(0, numberOfItems).map((project, index) => (
@@ -47,7 +52,7 @@ const Projects = (props) => {
                 className="btn-pill btn-ghost"
                 onClick={() => setShowMore(true)}
               >
-                Show more
+                Voir plus
               </button>
             </div>
           )}

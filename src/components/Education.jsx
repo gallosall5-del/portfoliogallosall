@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import PropTypes from 'prop-types';
 import endpoints from '../constants/endpoints';
 import Header from './Header';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/timeline.css';
+
+const EducationStairs = React.lazy(() => import('./three/EducationStairs'));
 
 function Education(props) {
   const { header } = props;
@@ -24,6 +26,9 @@ function Education(props) {
       <Header title={header} />
       {data ? (
         <div className="section-content-container">
+          <Suspense fallback={<FallbackSpinner />}>
+            <EducationStairs education={data.education} />
+          </Suspense>
           <Fade triggerOnce>
             <div className="tl tl--education">
               {data.education?.map((item) => (

@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  Suspense, lazy, useState, useEffect,
+} from 'react';
 import Typewriter from 'typewriter-effect';
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
@@ -6,6 +8,8 @@ import endpoints from '../constants/endpoints';
 import Social from './Social';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/home.css';
+
+const DeskScene = lazy(() => import('./three/DeskScene'));
 
 function initialsOf(name) {
   if (!name) return '';
@@ -31,47 +35,52 @@ function Home() {
   }, []);
 
   return data ? (
-    <Fade triggerOnce className="home-fade-container">
-      <section className="hero">
-        <div className="bento">
-          <div className="tile hero-intro span-4 rspan-2">
-            {data?.status && (
+    <>
+      <Suspense fallback={<FallbackSpinner />}>
+        <DeskScene />
+      </Suspense>
+      <Fade triggerOnce className="home-fade-container">
+        <section className="hero">
+          <div className="bento">
+            <div className="tile hero-intro span-4 rspan-2">
+              {data?.status && (
               <span className="hero-eyebrow">{data.status}</span>
-            )}
-            <h1 className="hero-name">{data?.name}</h1>
-            <div className="hero-roles">
-              <span>Je suisI&apos;m&nbsp;nbsp;</span>
-              <Typewriter
-                options={{
-                  loop: true,
-                  autoStart: true,
-                  strings: data?.roles,
-                }}
-              />
+              )}
+              <h1 className="hero-name">{data?.name}</h1>
+              <div className="hero-roles">
+                <span>Je suisI&apos;m&nbsp;nbsp;</span>
+                <Typewriter
+                  options={{
+                    loop: true,
+                    autoStart: true,
+                    strings: data?.roles,
+                  }}
+                />
+              </div>
+              {data?.tagline && <p className="hero-tagline">{data.tagline}</p>}
+              <div className="hero-cta">
+                <Link className="btn-pill btn-accent" to="/projects">
+                  Voir mes projets
+                </Link>
+                <Link className="btn-pill btn-ghost" to="/about">
+                  About me
+                </Link>
+              </div>
             </div>
-            {data?.tagline && <p className="hero-tagline">{data.tagline}</p>}
-            <div className="hero-cta">
-              <Link className="btn-pill btn-accent" to="/projects">
-                Voir mes projets
-              </Link>
-              <Link className="btn-pill btn-ghost" to="/about">
-                About me
-              </Link>
+
+            <div className="tile tile--accent monogram span-2">
+              <span className="monogram-mark">{initialsOf(data?.name)}</span>
+              <span className="monogram-label">{data?.name}</span>
+            </div>
+
+            <div className="tile hero-social span-2">
+              <span className="tile-label">Me retrouver</span>
+              <Social />
             </div>
           </div>
-
-          <div className="tile tile--accent monogram span-2">
-            <span className="monogram-mark">{initialsOf(data?.name)}</span>
-            <span className="monogram-label">{data?.name}</span>
-          </div>
-
-          <div className="tile hero-social span-2">
-            <span className="tile-label">Me retrouver</span>
-            <Social />
-          </div>
-        </div>
-      </section>
-    </Fade>
+        </section>
+      </Fade>
+    </>
   ) : <FallbackSpinner />;
 }
 

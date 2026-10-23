@@ -10,6 +10,9 @@ import {
   ContactShadows, Html, RoundedBox, useCursor, useGLTF, useProgress, useTexture,
 } from '@react-three/drei';
 import * as THREE from 'three';
+import {
+  ArrowDown, Books, DeviceMobile, FolderOpen, HandPointing, Laptop as LaptopIcon, Lightbulb, Smiley, SoccerBall, Wrench,
+} from '@phosphor-icons/react';
 import usePerformance from './usePerformance';
 import useStageColors from './useStageColors';
 import Robot from './Robot';
@@ -94,7 +97,7 @@ function Interactive({
 }
 
 Interactive.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   // Renvoie true si l'objet est emporté (l'étiquette est alors masquée).
   onClick: PropTypes.func.isRequired,
   onHover: PropTypes.func,
@@ -151,8 +154,20 @@ function usePhoneScreen() {
     ctx.fillRect(0, 0, 256, 512);
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.font = '120px sans-serif';
-    ctx.fillText('💬', 128, 250);
+    // Bulle de discussion dessinée (au lieu d'un émoji, dont le rendu varie selon le système).
+    ctx.beginPath();
+    ctx.roundRect(68, 140, 120, 84, 22);
+    ctx.moveTo(92, 222);
+    ctx.lineTo(84, 254);
+    ctx.lineTo(120, 222);
+    ctx.fill();
+    ctx.fillStyle = '#6d4ae8';
+    [100, 128, 156].forEach((x) => {
+      ctx.beginPath();
+      ctx.arc(x, 182, 8, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.fillStyle = '#ffffff';
     ctx.font = '700 40px Inter, sans-serif';
     ctx.fillText('Contact', 128, 340);
     const texture = new THREE.CanvasTexture(canvas);
@@ -216,7 +231,12 @@ function Lamp({ onToggle, onHover }) {
   const [on, setOn] = useState(true);
   return (
     <Interactive
-      label={on ? '💡 Éteindre la lampe' : '💡 Allumer la lampe'}
+      label={(
+        <>
+          <Lightbulb size={16} weight="duotone" aria-hidden="true" />
+          {on ? 'Éteindre la lampe' : 'Allumer la lampe'}
+        </>
+      )}
       onClick={(object) => {
         setOn(!on);
         onToggle(object);
@@ -306,29 +326,29 @@ function Scene({ reducedMotion, colors }) {
       <Model id="plastic_monobloc_chair_01" position={CHAIR_POS} rotation={[0, CHAIR_ROT, 0]} />
       <Robot ref={robot} position={[CHAIR_POS[0], 0, CHAIR_POS[2]]} seatRotation={CHAIR_ROT} />
 
-      <Interactive {...items} label="💻 Mes projets" onClick={bring('/projects')} position={[0, DESK_TOP, 0.05]}>
+      <Interactive {...items} label={<><LaptopIcon size={16} weight="duotone" aria-hidden="true" />Mes projets</>} onClick={bring('/projects')} position={[0, DESK_TOP, 0.05]}>
         <Laptop />
       </Interactive>
-      <Interactive {...items} label="📚 Ma formation" onClick={bring('/education', 'Yes')} position={[-0.92, DESK_TOP, -0.3]}>
+      <Interactive {...items} label={<><Books size={16} weight="duotone" aria-hidden="true" />Ma formation</>} onClick={bring('/education', 'Yes')} position={[-0.92, DESK_TOP, -0.3]}>
         <Model id="book_encyclopedia_set_01" />
       </Interactive>
-      <Interactive {...items} label="📁 Mon expérience" onClick={bring('/experience')} position={[-0.55, DESK_TOP, 0.22]} rotation={[0, 0.35, 0]}>
+      <Interactive {...items} label={<><FolderOpen size={16} weight="duotone" aria-hidden="true" />Mon expérience</>} onClick={bring('/experience')} position={[-0.55, DESK_TOP, 0.22]} rotation={[0, 0.35, 0]}>
         <Model id="binder_notebook" />
       </Interactive>
-      <Interactive {...items} label="🙂 À propos de moi" onClick={bring('/about', 'Wave')} position={[-0.5, DESK_TOP, -0.12]} rotation={[0, -Math.PI / 2 + 0.4, 0]}>
+      <Interactive {...items} label={<><Smiley size={16} weight="duotone" aria-hidden="true" />À propos de moi</>} onClick={bring('/about', 'Wave')} position={[-0.5, DESK_TOP, -0.12]} rotation={[0, -Math.PI / 2 + 0.4, 0]}>
         <PhotoFrame />
       </Interactive>
-      <Interactive {...items} label="🛠️ Mes compétences" onClick={bring('/skills', 'Yes')} position={[0.45, DESK_TOP, -0.28]}>
+      <Interactive {...items} label={<><Wrench size={16} weight="duotone" aria-hidden="true" />Mes compétences</>} onClick={bring('/skills', 'Yes')} position={[0.45, DESK_TOP, -0.28]}>
         <Model id="potted_plant_04" />
       </Interactive>
-      <Interactive {...items} label="📱 Me contacter" onClick={bring('/contact', 'Wave')} position={[0.22, DESK_TOP, 0.33]} rotation={[0, -0.25, 0]}>
+      <Interactive {...items} label={<><DeviceMobile size={16} weight="duotone" aria-hidden="true" />Me contacter</>} onClick={bring('/contact', 'Wave')} position={[0.22, DESK_TOP, 0.33]} rotation={[0, -0.25, 0]}>
         <Phone />
       </Interactive>
       <Lamp
         onHover={look}
         onToggle={(object) => robot.current.react(object.getWorldPosition(new THREE.Vector3()), 'Wave')}
       />
-      <Interactive {...items} label="⚽ Mes loisirs : football, cinéma, art" onClick={bring('/about', 'Wave')} position={[0.5, DESK_TOP, 0.3]}>
+      <Interactive {...items} label={<><SoccerBall size={16} weight="duotone" aria-hidden="true" />Mes loisirs : football, cinéma, art</>} onClick={bring('/about', 'Wave')} position={[0.5, DESK_TOP, 0.3]}>
         <Model id="dirty_football" />
       </Interactive>
 
@@ -382,7 +402,11 @@ function DeskScene() {
       </Canvas>
       {!entered && <Loader onReady={() => setEntered(true)} />}
       {entered && (
-        <p className="desk3d-hint">👆 Cliquez sur un objet du bureau : le robot vous l'apporte · Faites défiler ↓</p>
+        <p className="desk3d-hint">
+          <HandPointing size={16} weight="duotone" aria-hidden="true" />
+          {" Cliquez sur un objet du bureau : le robot vous l'apporte · Faites défiler "}
+          <ArrowDown size={14} weight="bold" aria-hidden="true" />
+        </p>
       )}
     </section>
   );

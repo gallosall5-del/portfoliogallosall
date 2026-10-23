@@ -133,9 +133,8 @@
   .tl-item { padding-left: 56px; }
 }
 
-.tl-node__emoji {
-  font-size: 1.35rem;
-  line-height: 1;
+.tl-node--icon svg {
+  color: #4f46e5;
 }
 
 .tl-tech {

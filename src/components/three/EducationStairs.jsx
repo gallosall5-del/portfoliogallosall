@@ -6,6 +6,7 @@ import {
   ContactShadows, Float, Html, RoundedBox, useCursor,
 } from '@react-three/drei';
 import * as THREE from 'three';
+import { HandPointing } from '@phosphor-icons/react';
 import Stage3D from './Stage3D';
 
 const STEP_W = 1.5;
@@ -116,7 +117,12 @@ function EducationStairs({ education }) {
   return (
     <Stage3D
       camera={{ position: [0, 2.2, 6.2], fov: 42 }}
-      hint="👆 Cliquez sur une marche pour voir le diplôme"
+      hint={(
+        <>
+          <HandPointing size={16} weight="duotone" aria-hidden="true" />
+          {' Cliquez sur une marche pour voir le diplôme'}
+        </>
+      )}
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[2, 5, 4]} intensity={1.4} />

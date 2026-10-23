@@ -7,6 +7,7 @@ import {
   Float, RoundedBox, Sparkles, useGLTF, useTexture,
 } from '@react-three/drei';
 import * as THREE from 'three';
+import { Mouse } from '@phosphor-icons/react';
 import Stage3D from './Stage3D';
 
 // Drapeau du Sénégal dessiné sur un canvas : vert, jaune, rouge + étoile verte.
@@ -120,7 +121,12 @@ function AboutCard({ image }) {
   return (
     <Stage3D
       camera={{ position: [0, 0, 5.2], fov: 45 }}
-      hint="🖱️ Bougez la souris pour incliner la carte"
+      hint={(
+        <>
+          <Mouse size={16} weight="duotone" aria-hidden="true" />
+          {' Bougez la souris pour incliner la carte'}
+        </>
+      )}
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[2, 3, 4]} intensity={1.3} />

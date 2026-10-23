@@ -6,6 +6,7 @@ import {
   Billboard, Html, OrbitControls, useCursor,
 } from '@react-three/drei';
 import * as THREE from 'three';
+import { HandGrabbing } from '@phosphor-icons/react';
 import Stage3D from './Stage3D';
 
 const RADIUS = 2.1;
@@ -127,7 +128,12 @@ function SkillsSphere({ items, highlight }) {
   return (
     <Stage3D
       camera={{ position: [0, 0, 6.2], fov: 50 }}
-      hint="🖱️ Faites tourner la sphère · Survolez un logo pour voir son nom"
+      hint={(
+        <>
+          <HandGrabbing size={16} weight="duotone" aria-hidden="true" />
+          {' Faites tourner la sphère · Survolez un logo pour voir son nom'}
+        </>
+      )}
     >
       <Cloud items={items} highlight={highlight} />
       <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1.2} />

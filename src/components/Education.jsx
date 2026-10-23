@@ -1,10 +1,18 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import PropTypes from 'prop-types';
+import {
+  BookOpen, Certificate, GraduationCap, MathOperations,
+} from '@phosphor-icons/react';
 import endpoints from '../constants/endpoints';
 import Header from './Header';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/timeline.css';
+
+// Les noms d'icônes d'education.json correspondent aux composants Phosphor.
+const ICONS = {
+  BookOpen, Certificate, GraduationCap, MathOperations,
+};
 
 const EducationStairs = React.lazy(() => import('./three/EducationStairs'));
 
@@ -34,11 +42,9 @@ function Education(props) {
               {data.education?.map((item) => (
                 <div className="tl-item" key={item.cardTitle + item.title}>
                   <div className="tl-node--icon">
-                    {item.icon ? (
-                      <img src={item.icon.src} alt={item.icon.alt} />
-                    ) : (
-                      <span className="tl-node__emoji" aria-hidden="true">{item.emoji || '🎓'}</span>
-                    )}
+                    {React.createElement(ICONS[item.icon] || GraduationCap, {
+                      size: 24, weight: 'duotone', 'aria-hidden': true,
+                    })}
                   </div>
                   <div className="tl-card">
                     <div className="tl-date">{item.title}</div>

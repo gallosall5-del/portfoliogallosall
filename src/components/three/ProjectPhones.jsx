@@ -6,6 +6,7 @@ import {
   ContactShadows, Float, RoundedBox, useCursor, useTexture,
 } from '@react-three/drei';
 import * as THREE from 'three';
+import { CaretLeft, CaretRight, HandPointing } from '@phosphor-icons/react';
 import Stage3D from './Stage3D';
 
 const PHONE_W = 1;
@@ -125,7 +126,15 @@ function ProjectPhones({ projects }) {
   const current = withImages[index];
   return (
     <div className="stage3d-wrap">
-      <Stage3D camera={{ position: [0, 0.2, 3.6], fov: 45 }} hint="👆 Cliquez sur un téléphone ou utilisez les flèches ‹ ›">
+      <Stage3D
+        camera={{ position: [0, 0.2, 3.6], fov: 45 }}
+        hint={(
+          <>
+            <HandPointing size={16} weight="duotone" aria-hidden="true" />
+            {' Cliquez sur un téléphone ou utilisez les flèches'}
+          </>
+        )}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[3, 4, 5]} intensity={1.4} />
         <pointLight position={[-3, 1, 2]} intensity={2} color="#818cf8" />
@@ -136,8 +145,8 @@ function ProjectPhones({ projects }) {
         <h3>{current.title}</h3>
         <p>{current.tags?.join(' · ')}</p>
       </div>
-      <button type="button" className="stage3d-nav stage3d-nav--prev" aria-label="Projet précédent" onClick={() => setIndex((index - 1 + n) % n)}>‹</button>
-      <button type="button" className="stage3d-nav stage3d-nav--next" aria-label="Projet suivant" onClick={() => setIndex((index + 1) % n)}>›</button>
+      <button type="button" className="stage3d-nav stage3d-nav--prev" aria-label="Projet précédent" onClick={() => setIndex((index - 1 + n) % n)}><CaretLeft size={20} weight="bold" aria-hidden="true" /></button>
+      <button type="button" className="stage3d-nav stage3d-nav--next" aria-label="Projet suivant" onClick={() => setIndex((index + 1) % n)}><CaretRight size={20} weight="bold" aria-hidden="true" /></button>
     </div>
   );
 }

@@ -17,32 +17,29 @@
     ],
     "languages": [
         {
-            "flag": "🇸🇳",
             "name": "Wolof",
             "level": "Langue maternelle"
         },
         {
-            "flag": "🇫🇷",
             "name": "Français",
             "level": "Courant"
         },
         {
-            "flag": "🇬🇧",
             "name": "Anglais",
             "level": "Intermédiaire"
         }
     ],
     "hobbies": [
         {
-            "icon": "⚽",
+            "icon": "SoccerBall",
             "label": "Football"
         },
         {
-            "icon": "🎬",
+            "icon": "FilmSlate",
             "label": "Cinéma"
         },
         {
-            "icon": "🎨",
+            "icon": "Palette",
             "label": "Art & Culture"
         }
     ]

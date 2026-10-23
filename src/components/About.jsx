@@ -3,11 +3,16 @@ import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
-import { FilePdf } from '@phosphor-icons/react';
+import {
+  FilePdf, FilmSlate, Palette, SoccerBall, Translate,
+} from '@phosphor-icons/react';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/about.css';
+
+// Les noms d'icônes des loisirs (about.json) correspondent aux composants Phosphor.
+const HOBBY_ICONS = { FilmSlate, Palette, SoccerBall };
 
 const AboutCard = React.lazy(() => import('./three/AboutCard'));
 
@@ -60,7 +65,7 @@ function About(props) {
                   <div className="about-chips">
                     {data.languages.map((lang) => (
                       <span key={lang.name} className="about-chip">
-                        <span aria-hidden="true">{lang.flag}</span>
+                        <Translate size={18} weight="duotone" aria-hidden="true" />
                         <strong>{lang.name}</strong>
                         <small>{lang.level}</small>
                       </span>
@@ -74,7 +79,9 @@ function About(props) {
                   <div className="about-chips">
                     {data.hobbies.map((hobby) => (
                       <span key={hobby.label} className="about-chip">
-                        <span aria-hidden="true">{hobby.icon}</span>
+                        {HOBBY_ICONS[hobby.icon] && React.createElement(HOBBY_ICONS[hobby.icon], {
+                          size: 18, weight: 'duotone', 'aria-hidden': true,
+                        })}
                         <strong>{hobby.label}</strong>
                       </span>
                     ))}

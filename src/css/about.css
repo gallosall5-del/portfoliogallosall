@@ -93,6 +93,10 @@
   background: var(--accent-soft);
 }
 
+.about-chip svg {
+  color: var(--accent);
+}
+
 .about-chip small {
   color: var(--text-muted);
 }

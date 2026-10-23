@@ -55,7 +55,7 @@ function Stage3D({
 Stage3D.propTypes = {
   children: PropTypes.node.isRequired,
   height: PropTypes.string,
-  hint: PropTypes.string,
+  hint: PropTypes.node,
   className: PropTypes.string,
 };
 

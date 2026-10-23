@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useFrame } from '@react-three/fiber';
 import { Html, OrbitControls, useCursor } from '@react-three/drei';
 import * as THREE from 'three';
+import { HandGrabbing, MapPin } from '@phosphor-icons/react';
 import Stage3D from './Stage3D';
 import useStageColors from './useStageColors';
 
@@ -155,7 +156,14 @@ function DakarMap({ experiences }) {
   return (
     <Stage3D
       camera={{ position: [0, 3.4, 3.6], fov: 45 }}
-      hint="📍 Cliquez sur un repère · 🖱️ Faites glisser pour tourner autour de Dakar"
+      hint={(
+        <>
+          <MapPin size={16} weight="duotone" aria-hidden="true" />
+          {' Cliquez sur un repère · '}
+          <HandGrabbing size={16} weight="duotone" aria-hidden="true" />
+          {' Faites glisser pour tourner autour de Dakar'}
+        </>
+      )}
     >
       <fog attach="fog" args={[colors.background, 6, 13]} />
       <ambientLight intensity={0.6} />

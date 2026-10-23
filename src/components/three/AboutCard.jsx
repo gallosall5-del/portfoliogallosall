@@ -2,7 +2,7 @@
    -- props Three.js de React Three Fiber */
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import {
   Float, RoundedBox, Sparkles, useGLTF, useTexture,
 } from '@react-three/drei';
@@ -117,6 +117,31 @@ function PhotoCard({ image }) {
 
 PhotoCard.propTypes = { image: PropTypes.string.isRequired };
 
+// Paysage : drapeau à gauche, ballon à droite. Portrait (mobile) : drapeau
+// au-dessus, ballon en dessous, pour garder la photo grande.
+const LAYOUTS = {
+  landscape: {
+    width: 6.6, flag: [-2.5, 0.75, -1.2], flagScale: 0.9, ball: [2.35, -0.6, -0.4],
+  },
+  portrait: {
+    width: 2.8, flag: [-0.45, 2.3, -1.2], flagScale: 0.75, ball: [0.85, -1.75, -0.4],
+  },
+};
+
+function Composition({ image }) {
+  const viewport = useThree((s) => s.viewport);
+  const layout = viewport.width < viewport.height ? LAYOUTS.portrait : LAYOUTS.landscape;
+  return (
+    <group scale={Math.min(1, viewport.width / layout.width)}>
+      <PhotoCard image={image} />
+      <Flag position={layout.flag} rotation={[0, 0.35, 0]} scale={layout.flagScale} />
+      <Football position={layout.ball} />
+    </group>
+  );
+}
+
+Composition.propTypes = { image: PropTypes.string.isRequired };
+
 function AboutCard({ image }) {
   return (
     <Stage3D
@@ -131,9 +156,7 @@ function AboutCard({ image }) {
       <ambientLight intensity={0.6} />
       <directionalLight position={[2, 3, 4]} intensity={1.3} />
       <pointLight position={[-2, 1, 3]} intensity={3} color="#818cf8" />
-      <PhotoCard image={image} />
-      <Flag position={[-2.5, 0.75, -1.2]} rotation={[0, 0.35, 0]} scale={0.9} />
-      <Football position={[2.35, -0.6, -0.4]} />
+      <Composition image={image} />
       <Sparkles count={60} scale={[7, 4, 3]} size={2.5} speed={0.4} color="#a5b4fc" />
     </Stage3D>
   );

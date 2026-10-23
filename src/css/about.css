@@ -91,6 +91,7 @@
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--accent-soft);
+  flex-wrap: wrap;
 }
 
 .about-chip svg {
@@ -98,5 +99,6 @@
 }
 
 .about-chip small {
+  white-space: nowrap;
   color: var(--text-muted);
 }

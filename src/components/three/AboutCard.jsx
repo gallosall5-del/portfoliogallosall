@@ -87,8 +87,15 @@ function Football(props) {
 
 // Carte photo qui s'incline en suivant la souris.
 function PhotoCard({ image }) {
-  const photo = useTexture(image);
-  photo.colorSpace = THREE.SRGBColorSpace;
+  const cached = useTexture(image);
+  // Copie locale : le cadre du bureau met flipY à false sur la texture partagée.
+  const photo = useMemo(() => {
+    const t = cached.clone();
+    t.flipY = true;
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.needsUpdate = true;
+    return t;
+  }, [cached]);
   const ref = useRef();
   useFrame(({ pointer }, delta) => {
     ref.current.rotation.y = THREE.MathUtils.damp(ref.current.rotation.y, pointer.x * 0.45, 5, delta);

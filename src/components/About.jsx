@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
+import { FilePdf } from '@phosphor-icons/react';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
@@ -47,7 +48,10 @@ function About(props) {
                 ))}
                 <div className="about-actions">
                   <Link className="btn-pill btn-accent" to="/contact">Me contacter</Link>
-                  <a className="btn-pill btn-ghost" href="CV_Gallo_Sall.pdf" download>📄 Mon CV</a>
+                  <a className="btn-pill btn-ghost" href="CV_Gallo_Sall.pdf" download>
+                    <FilePdf size={20} weight="duotone" aria-hidden="true" />
+                    Mon CV
+                  </a>
                 </div>
               </div>
               {data.languages && (

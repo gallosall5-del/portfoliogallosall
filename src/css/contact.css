@@ -29,7 +29,8 @@
 }
 
 .contact-card__icon {
-  font-size: 1.6rem;
+  display: inline-flex;
+  color: var(--accent);
   line-height: 1;
   margin-bottom: 0.35rem;
 }

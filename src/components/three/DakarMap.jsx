@@ -119,7 +119,7 @@ function Pin({
             {place.detail && <div>{place.detail}</div>}
           </div>
         ) : (
-          <div className="stage3d-label">{place.title}</div>
+          <div className="stage3d-label">{place.title.split(' — ')[0]}</div>
         )}
       </Html>
     </group>

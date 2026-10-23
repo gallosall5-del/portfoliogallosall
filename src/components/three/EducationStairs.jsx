@@ -44,14 +44,14 @@ function Step({
         </RoundedBox>
         <Html
           position={[0, 0, STEP_D / 2 + 0.01]}
-          transform
-          distanceFactor={2.2}
+          center
+          zIndexRange={[10, 0]}
           className="stairs-year"
         >
           {item.title}
         </Html>
       </group>
-      {index === total - 1 && (
+      {index === total - 1 && !active && (
         <Float speed={2} floatIntensity={0.6}>
           <mesh position={[0, height + 0.45, 0]} rotation={[0.3, 0.6, 0]}>
             <octahedronGeometry args={[0.18]} />
@@ -85,12 +85,21 @@ Step.propTypes = {
 
 // La caméra glisse doucement vers la marche sélectionnée.
 function CameraFollow({ index, total }) {
-  useFrame(({ camera, pointer }, delta) => {
-    const x = (index - (total - 1) / 2) * (STEP_W + 0.05) * 0.55 + pointer.x * 0.3;
+  // Le point visé glisse lui aussi : sans ça, il sautait d'un coup au clic.
+  const look = useRef(null);
+  useFrame(({ camera, pointer, size }, delta) => {
+    // Sur un écran étroit, la caméra se centre sur la marche pour que la carte reste visible.
+    const follow = size.width < 600 ? 1 : 0.55;
+    const x = (index - (total - 1) / 2) * (STEP_W + 0.05) * follow + pointer.x * 0.3;
     const y = 1.4 + STEP_H * (index + 1) * 0.6 + pointer.y * 0.15;
     camera.position.x = THREE.MathUtils.damp(camera.position.x, x, 3, delta);
     camera.position.y = THREE.MathUtils.damp(camera.position.y, y, 3, delta);
-    camera.lookAt(x * 0.8, STEP_H * (index + 1) * 0.7, 0);
+    const lookX = x * (size.width < 600 ? 1 : 0.8);
+    const lookY = STEP_H * (index + 1) * 0.7;
+    if (!look.current) look.current = new THREE.Vector3(lookX, lookY, 0);
+    look.current.x = THREE.MathUtils.damp(look.current.x, lookX, 3, delta);
+    look.current.y = THREE.MathUtils.damp(look.current.y, lookY, 3, delta);
+    camera.lookAt(look.current);
   });
   return null;
 }
@@ -106,7 +115,7 @@ function EducationStairs({ education }) {
   const [active, setActive] = useState(steps.length - 1);
   return (
     <Stage3D
-      camera={{ position: [0, 2.2, 5.2], fov: 50 }}
+      camera={{ position: [0, 2.2, 6.2], fov: 42 }}
       hint="👆 Cliquez sur une marche pour voir le diplôme"
     >
       <ambientLight intensity={0.5} />

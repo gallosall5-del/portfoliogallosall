@@ -84,7 +84,10 @@
 
 /* Shared pill buttons + tile label (used across hero, projects, etc.) */
 .btn-pill {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
   border-radius: 999px;
   padding: 0.7em 1.5em;
   font-weight: 600;
@@ -163,7 +166,7 @@
   cursor: pointer;
   text-decoration: none;
   letter-spacing: 0.01em;
-  border-bottom: 2px solid transparent;
+  white-space: nowrap;
   transition: color var(--dur) var(--ease);
 }
 
@@ -189,7 +192,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991.98px) {
   .navbar__link::after,
   .navbar__link.active::after,
   .navbar__link.active:hover::after,
@@ -201,6 +204,8 @@
 
 /* ---- Section heading ----------------------------------------------------- */
 .header {
+  color: inherit;
+  line-height: 1.2;
   font-family: var(--font-display);
   font-size: clamp(2.1rem, 5vw, 3rem);
   font-weight: 600;
@@ -264,4 +269,229 @@
 .theme-toggle:hover {
   transform: rotate(20deg);
   background: var(--accent-soft);
+}
+
+/* ---- Menu mobile plein écran -------------------------------------------- */
+.menu-toggle {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.menu-toggle span {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform var(--dur) var(--ease), top var(--dur) var(--ease);
+}
+
+.menu-toggle span:first-child { top: 17px; }
+.menu-toggle span:last-child { top: 25px; }
+.menu-toggle--open span:first-child { top: 21px; transform: rotate(45deg); }
+.menu-toggle--open span:last-child { top: 21px; transform: rotate(-45deg); }
+
+.mobile-menu { display: none; }
+
+@media (max-width: 991.98px) {
+  .menu-toggle { display: block; }
+  .navbar-custom .navbar-collapse { display: none !important; }
+
+  .mobile-menu__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+  }
+
+  .mobile-menu__backdrop--open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(80vw, 380px);
+    z-index: 1041;
+    border-left: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom));
+    background: var(--bg);
+    overflow-y: auto;
+    text-align: left;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: transform 0.35s var(--ease), visibility 0s linear 0.35s;
+  }
+
+  .mobile-menu--open {
+    visibility: visible;
+    transform: none;
+    transition: transform 0.35s var(--ease);
+  }
+
+  .mobile-menu__profile {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mobile-menu__profile img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+  }
+
+  .mobile-menu__profile strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .mobile-menu__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .mobile-menu__status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+  }
+
+  .mobile-menu__profile .menu-toggle {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .mobile-menu__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .mobile-menu__tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 92px;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease),
+      border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+
+  .mobile-menu--open .mobile-menu__tile {
+    opacity: 1;
+    transform: none;
+  }
+
+  .mobile-menu__tile svg { color: var(--accent); }
+
+  .mobile-menu__tile:hover,
+  .mobile-menu__tile.active {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  }
+
+  .mobile-menu__tile.active {
+    background: var(--accent-soft);
+  }
+
+  .mobile-menu__tile.active::after {
+    content: "";
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .mobile-menu__tile--cta {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 56px;
+    background: var(--gradient);
+    border-color: transparent;
+    color: #fff;
+  }
+
+  .mobile-menu__tile--cta svg,
+  .mobile-menu__tile--cta:hover,
+  .mobile-menu__tile--cta.active { color: #fff; }
+
+  .mobile-menu__tile--cta.active { background: var(--gradient); }
+  .mobile-menu__tile--cta.active::after { display: none; }
+
+  .mobile-menu__arrow {
+    margin-left: auto;
+    font-size: 1.2rem;
+  }
+
+  .mobile-menu__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .mobile-menu__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .mobile-menu__actions .theme-toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobile-menu .social > a {
+    margin: 0 !important;
+  }
 }

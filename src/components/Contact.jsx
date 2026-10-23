@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
+import {
+  EnvelopeSimple, FilePdf, GithubLogo, LinkedinLogo, MapPin, Phone, WhatsappLogo,
+} from '@phosphor-icons/react';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
 import '../css/contact.css';
+
+// Les noms d'icônes de contact.json correspondent aux composants Phosphor.
+const ICONS = {
+  EnvelopeSimple, GithubLogo, LinkedinLogo, MapPin, Phone, WhatsappLogo,
+};
+
+function ContactIcon({ name, size }) {
+  const Icon = ICONS[name];
+  return Icon ? <Icon size={size} weight="duotone" aria-hidden="true" /> : null;
+}
+
+ContactIcon.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+};
 
 function Contact(props) {
   const { header } = props;
@@ -38,18 +56,20 @@ function Contact(props) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {`${item.icon} ${item.label}`}
+                      <ContactIcon name={item.icon} size={20} />
+                      {item.label}
                     </a>
                   ))}
                   <a className="btn-pill btn-ghost" href={data.cv} download>
-                    📄 Télécharger mon CV
+                    <FilePdf size={20} weight="duotone" aria-hidden="true" />
+                    Télécharger mon CV
                   </a>
                 </div>
               </div>
               {data.items.map((item) => {
                 const content = (
                   <>
-                    <span className="contact-card__icon" aria-hidden="true">{item.icon}</span>
+                    <span className="contact-card__icon"><ContactIcon name={item.icon} size={28} /></span>
                     <span className="contact-card__label">{item.label}</span>
                     <span className="contact-card__value">{item.value}</span>
                   </>

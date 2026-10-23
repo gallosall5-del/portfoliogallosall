@@ -45,7 +45,12 @@
         {
             "title": "Portfolio Personnel",
             "bodyText": "- Portfolio web développé avec **React** et **Three.js**.\n- Accueil en **3D** : un bureau interactif avec un robot qui apporte chaque section.\n- Une scène 3D par page, mode sombre/clair, design responsive.",
-            "links": [],
+            "links": [
+                {
+                    "text": "Code source",
+                    "href": "https://github.com/gallosall5-del/portfoliogallosall"
+                }
+            ],
             "tags": [
                 "React",
                 "Three.js",

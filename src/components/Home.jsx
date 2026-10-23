@@ -26,6 +26,7 @@ function Home() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    document.title = 'Gallo SALL — Développeur Full-Stack & Mobile';
     fetch(endpoints.home, {
       method: 'GET',
     })
@@ -48,7 +49,7 @@ function Home() {
               )}
               <h1 className="hero-name">{data?.name}</h1>
               <div className="hero-roles">
-                <span>Je suisI&apos;m&nbsp;nbsp;</span>
+                <span>Je suis&nbsp;</span>
                 <Typewriter
                   options={{
                     loop: true,
@@ -63,7 +64,7 @@ function Home() {
                   Voir mes projets
                 </Link>
                 <Link className="btn-pill btn-ghost" to="/about">
-                  About me
+                  À propos
                 </Link>
               </div>
             </div>

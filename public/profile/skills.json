@@ -18,10 +18,7 @@
                 },
                 {
                     "icon": "images/skills/typescript.png",
-                    "title": "TypeScript",
-                    "usedIn": [
-                        "Portfolio"
-                    ]
+                    "title": "TypeScript"
                 },
                 {
                     "icon": "images/skills/react.png",

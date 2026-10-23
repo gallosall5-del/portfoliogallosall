@@ -4,6 +4,7 @@ import FallbackSpinner from './components/FallbackSpinner';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Footer from './components/Footer';
+import NotFound from './components/NotFound';
 import endpoints from './constants/endpoints';
 
 const ParticlesBackground = React.lazy(() => import('./components/three/ParticlesBackground'));
@@ -41,6 +42,7 @@ function MainApp() {
                   />
                 );
               })}
+            {data && <Route path="*" element={<NotFound />} />}
           </Routes>
         </Suspense>
       </main>
